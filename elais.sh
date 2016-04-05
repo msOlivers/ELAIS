@@ -81,7 +81,7 @@ until [ "$item" = "0" ]; do
     echo ""
     echo "0 - exit program"
     echo ""
-    echo -n "Enter Selection: "
+    echo -n "${Purple}elais${reset}> "
     read item
     echo ""
     case $item in
