@@ -1,4 +1,6 @@
 #!/bin/bash
+# autor: msOliver
+# Colaborador: ishock
 
 enter () {
     echo ""
