@@ -23,6 +23,22 @@ Purple="\033[0;35m"       # Purple
 Cyan="\033[0;36m"         # Cyan
 White="\033[0;37m"        # White
 
+menu (){
+echo "
+\n	
+${BWhite}[++++++++++++++++++++++++++++++++++++++++++++++++++++++++++]
+[++] ELAIS - Essential Linux Apps Installer Script	[++]
+[++]${reset} 	${BBlue}Essential Linux Apps Installer Script${reset}		${BWhite}[++]
+[++] 	Created by: ${Red}Moisés Oliver${reset} (${Yellow}msOliver${reset}) 		${BWhite}[++]
+[++] 	Colaborador: ${Green}Leandro Neni${reset} (${Yellow}ishock${reset}) 		${BWhite}[++]
+[++] 		Version:${reset} ${Red}1.0${reset} 				${BWhite}[++]
+[++]	 Follow me on Twitter:${reset} ${Purple}@msOliver_s${reset} 		${BWhite}[++]
+[++] 	Channel:${reset} ${Blue}https://goo.gl/dnglar${reset}		 	${BWhite}[++]
+[++] Homepage:${reset} ${Blue}http://mstutoriall.blogspot.com.br/${reset}	[++]
+[++++++++++++++++++++++++++++++++++++++++++++++++++++++++++] 
+"
+}
+
 enter () {
     echo ""
     echo -n "Press Enter to continue"
@@ -46,9 +62,9 @@ prog9="mitmf"
 prog10="openshot"
 prog11="transmission"
 
-selec=
-until [ "$selec" = "0" ]; do
-    echo ""
+item=
+until [ "$item" = "0" ]; do
+    menu
     echo "MENU OF INSTALLATION\n"
     echo "1  - Audacity"
     echo "2  - Etherape"
@@ -65,10 +81,10 @@ until [ "$selec" = "0" ]; do
     echo ""
     echo "0 - exit program"
     echo ""
-    echo -n "Enter selection: "
-    read selec
+    echo -n "Enter Selection: "
+    read item
     echo ""
-    case $selec in
+    case $item in
         1 ) $cmd $prog1 -y ; enter ;;
         2 ) $cmd $prog2 -y ; enter ;;
         3 ) $cmd $prog3 -y ; enter ;;
