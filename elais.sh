@@ -1,6 +1,7 @@
 #!/bin/bash
 # autor: msOliver
 # Colaborador: ishock
+
 # Colors
 # Reset
 reset="\033[0m"       	  # Text Reset
@@ -23,9 +24,8 @@ Purple="\033[0;35m"       # Purple
 Cyan="\033[0;36m"         # Cyan
 White="\033[0;37m"        # White
 
-menu (){
+menu(){
 echo "
-\n	
 ${BWhite}[++++++++++++++++++++++++++++++++++++++++++++++++++++++++++]
 [++] ELAIS - Essential Linux Apps Installer Script	[++]
 [++]${reset} 	${BBlue}Essential Linux Apps Installer Script${reset}		${BWhite}[++]
@@ -39,10 +39,8 @@ ${BWhite}[++++++++++++++++++++++++++++++++++++++++++++++++++++++++++]
 "
 }
 
-enter () {
-    echo ""
+enter() {
     echo -n "Press Enter to continue"
-    read
     clear
 }
 
@@ -65,27 +63,29 @@ prog11="transmission"
 item=
 until [ "$item" = "0" ]; do
     menu
-    echo "MENU OF INSTALLATION\n"
-    echo "1  - Audacity"
-    echo "2  - Etherape"
-    echo "3  - Gnome-mplayer"
-    echo "4  - Gpaint"
-    echo "5  - Gufw"
-    echo "6  - Kdenlive"
-    echo "7  - Libreoffice"
-    echo "8  - Mingw32"
-    echo "9  - Mitmf"
-    echo "10 - Openshot"
-    echo "11 - Transmission"
-    echo "00 - All"
+    echo " ${BBlue}Select from the menu:${reset}\n"
+    echo " 1)  - Audacity"
+    echo " 2)  - Etherape"
+    echo " 3)  - Gnome-mplayer"
+    echo " 4)  - Gpaint"
+    echo " 5)  - Gufw"
+    echo " 6)  - Kdenlive"
+    echo " 7)  - Libreoffice"
+    echo " 8)  - Mingw32"
+    echo " 9)  - Mitmf"
+    echo " 10) - Openshot"
+    echo " 11) - Transmission"
+    echo " 99) - All"
     echo ""
-    echo "0 - exit program"
+    echo " 0 - Exit the ELAIS"
     echo ""
     echo -n "${Purple}elais${reset}> "
     read item
     echo ""
     case $item in
-        1 ) $cmd $prog1 -y ; enter ;;
+        1 ) echo "[++} Iniciando instalacao do (${BGreen}Audacity${reset}) [++]\n";
+		sleep 1;
+		$cmd $prog1 -y ; enter ;;
         2 ) $cmd $prog2 -y ; enter ;;
         3 ) $cmd $prog3 -y ; enter ;;
         4 ) $cmd $prog4 -y ; enter ;;
@@ -98,6 +98,5 @@ until [ "$item" = "0" ]; do
         11 ) $cmd $prog11 -y ; enter ;;
         00 ) $cmd $all -y ; enter ;;
         0 ) exit ;;
-        * ) echo "Please enter one number"; enter
     esac
 done
