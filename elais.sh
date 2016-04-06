@@ -1,6 +1,7 @@
 #!/bin/sh
 # autor: msOliver
 # Colaborador: ishock
+# Colaborador: ishock
 
 script="ELAIS"
 # Colors
@@ -97,8 +98,8 @@ apt_16="mitmf"
 apt_17="openshot"
 #   18 sublime
 apt_19="transmission"
-#   20 VirtualBox
-#   21 VMWare
+apt_20="VirtualBox"
+apt_21="VMWare"
 
 #install gedit-plugins
 
@@ -112,7 +113,9 @@ aptGet() {
 			echo " O Programa ${Red}$apt_1${reset} ja esta instalado "
 		else
 			echo "[++] Iniciando instalacao (${BGreen}$apt_1${reset}) \n"
+			echo "${BWhite}"
 			apt-get install $apt_1 -y
+			echo "${reset}"
 			echo "[++] (${BGreen}$apt_6${reset}) instalado com sucesso"
 		fi ; enter;
 #########################################################################################################
@@ -123,7 +126,9 @@ aptGet() {
 		cd /usr/lib/mozilla/plugins
 		echo "${Green}[++]${reset} ${BYellow}Inicinado Download${reset}"
 		sleep 1
+		echo "${BWhite}"
 		wget https://fpdownload.adobe.com/get/flashplayer/pdc/11.2.202.577/install_flash_player_11_linux.x86_64.tar.gz
+		echo "${reset}"
 		echo "${Green}[++]${reset} ${BBlue}Download finalizado${reset}"
 		sleep 1
 		echo "${Green}[++]${reset} ${BYellow}Descompactando arquivo${reset}"
@@ -141,7 +146,7 @@ aptGet() {
 			var="O Programa ${Red}$prog3${reset} ja esta instalado "
 		else
 			echo "[++} Iniciando instalacao (${BGreen}$prog3${reset}) [++]\n"
-			apt-get install $prog3
+			apt-get install $prog3 -y
 		fi ; enter;
 #########################################################################################################
 	elif [ "$item" -eq 4 ]; then	#################### ITEM 4 PROG 4 apt_4="cmatrix"
@@ -149,7 +154,9 @@ aptGet() {
 			echo " O Programa ${Red}$apt_4${reset} ja esta instalado"
 		else
 			echo "[++] Iniciando instalacao (${BGreen}$apt_4${reset}) [++]\n"
+			echo "${BWhite}"
 			apt-get install $apt_4 -y
+			echo "${reset}"
 			echo "[++] (${BGreen}$apt_4${reset}) instalado com sucesso"
 		fi ; enter;
 #########################################################################################################
@@ -158,7 +165,9 @@ aptGet() {
 			echo " O Programa ${Red}$apt_5${reset} ja esta instalado "
 		else
 			echo "[++] Iniciando instalacao (${BGreen}$apt_5${reset}) [++]\n"
+			echo "${BWhite}"
 			apt-get install $apt_5 -y
+			echo "${reset}"
 			echo "[++] (${BGreen}$apt_5${reset}) instalado com sucesso"
 		fi ; enter;
 #########################################################################################################
@@ -167,7 +176,9 @@ aptGet() {
 			echo " O Programa ${Red}$apt_6${reset} ja esta instalado "
 		else
 			echo "[++] Iniciando instalacao (${BGreen}$apt_6${reset}) [++]\n"
+			echo "${BWhite}"
 			apt-get install $apt_6 -y
+			echo "${reset}"
 			echo "[++] (${BGreen}$apt_6${reset}) instalado com sucesso"
 		fi ; enter;
 #########################################################################################################
@@ -176,7 +187,9 @@ aptGet() {
 			echo " O Programa ${Red}$apt_7${reset} ja esta instalado "
 		else
 			echo "[++] Iniciando instalacao (${BGreen}$apt_7${reset}) [++]\n"
+			echo "${BWhite}"
 			apt-get install $apt_7 -y
+			echo "${reset}"
 			echo "[++] (${BGreen}$apt_7${reset}) instalado com sucesso"
 		fi ; enter;
 #########################################################################################################
@@ -185,7 +198,9 @@ aptGet() {
 			echo " O Programa ${Red}$apt_8${reset} ja esta instalado "
 		else
 			echo "[++] Iniciando instalacao (${BGreen}$apt_8${reset}) [++]\n"
+			echo "${BWhite}"
 			apt-get install $apt_8 -y
+			echo "${reset}"
 			echo "[++] (${BGreen}$apt_8${reset}) instalado com sucesso"
 		fi ; enter;
 #########################################################################################################
@@ -194,7 +209,9 @@ aptGet() {
 			echo " O Programa ${Red}$apt_9${reset} ja esta instalado "
 		else
 			echo "[++] Iniciando instalacao (${BGreen}$apt_9${reset}) [++]\n"
+			echo "${BWhite}"
 			apt-get install $apt_9 -y
+			echo "${reset}"
 			echo "[++] (${BGreen}$apt_9${reset}) instalado com sucesso"
 		fi ; enter;
 #########################################################################################################
@@ -203,7 +220,9 @@ aptGet() {
 			echo " O Programa ${Red}$apt_10${reset} ja esta instalado "
 		else
 			echo "[++] Iniciando instalacao (${BGreen}$apt_10${reset}) [++]\n"
+			echo "${BWhite}"
 			apt-get install $apt_10 -y
+			echo "${reset}"
 			echo "[++] (${BGreen}$apt_10${reset}) instalado com sucesso"
 		fi ; enter;
 #########################################################################################################
@@ -212,7 +231,9 @@ aptGet() {
 			echo " O Programa ${Red}$apt_11${reset} ja esta instalado "
 		else
 			echo "[++] Iniciando instalacao (${BGreen}$apt_11${reset}) [++]\n"
+			echo "${BWhite}"
 			apt-get install $apt_11 -y
+			echo "${reset}"
 			echo "[++] (${BGreen}$apt_11${reset}) instalado com sucesso"
 		fi ; enter;
 #########################################################################################################
@@ -221,7 +242,9 @@ aptGet() {
 			echo " O Programa ${Red}$apt_12${reset} ja esta instalado "
 		else
 			echo "[++] Iniciando instalacao (${BGreen}$apt_12${reset}) [++]\n"
+			echo "${BWhite}"
 			apt-get install $apt_12 -y
+			echo "${reset}"
 			echo "[++] (${BGreen}$apt_12${reset}) instalado com sucesso"
 		fi ; enter;
 #########################################################################################################
@@ -230,7 +253,9 @@ aptGet() {
 			echo " O Programa ${Red}$apt_13${reset} ja esta instalado "
 		else
 			echo "[++] Iniciando instalacao (${BGreen}$apt_13${reset}) [++]\n"
+			echo "${BWhite}"
 			apt-get install $apt_13 -y
+			echo "${reset}"
 			echo "[++] (${BGreen}$apt_13${reset}) instalado com sucesso"
 		fi ; enter;
 #########################################################################################################
@@ -239,7 +264,9 @@ aptGet() {
 			echo " O Programa ${Red}$apt_14${reset} ja esta instalado "
 		else
 			echo "[++] Iniciando instalacao (${BGreen}$apt_14${reset}) [++]\n"
+			echo "${BWhite}"
 			apt-get install $apt_14 -y
+			echo "${reset}"
 			echo "[++] (${BGreen}$apt_14${reset}) instalado com sucesso"
 		fi ; enter;
 #########################################################################################################
@@ -248,7 +275,9 @@ aptGet() {
 			echo " O Programa ${Red}$apt_15${reset} ja esta instalado "
 		else
 			echo "[++] Iniciando instalacao (${BGreen}$apt_15${reset}) [++]\n"
+			echo "${BWhite}"
 			apt-get install $apt_15 -y
+			echo "${reset}"
 			echo "[++] (${BGreen}$apt_15${reset}) instalado com sucesso"
 		fi ; enter;
 #########################################################################################################
@@ -257,7 +286,9 @@ aptGet() {
 			echo " O Programa ${Red}$apt_16${reset} ja esta instalado "
 		else
 			echo "[++] Iniciando instalacao (${BGreen}$apt_16${reset}) [++]\n"
+			echo "${BWhite}"
 			apt-get install $apt_16 -y
+			echo "${reset}"
 			echo "[++] (${BGreen}$apt_16${reset}) instalado com sucesso"
 		fi ; enter;
 #########################################################################################################
@@ -266,7 +297,9 @@ aptGet() {
 			echo " O Programa ${Red}$apt_17${reset} ja esta instalado "
 		else
 			echo "[++] Iniciando instalacao (${BGreen}$apt_17${reset}) [++]\n"
+			echo "${BWhite}"
 			apt-get install $apt_17 -y
+			echo "${reset}"
 			echo "[++] (${BGreen}$apt_17${reset}) instalado com sucesso"
 		fi ; enter;
 #########################################################################################################
@@ -274,30 +307,79 @@ aptGet() {
 		if which -a "$prog9"; then
 			echo " O Programa ${Red}$prog9${reset} ja esta instalado "
 		else
-			echo "[++] Iniciando instalacao (${BGreen}$prog9${reset}) [++]\n"
-			apt-get install $prog9
-			echo "[++] (${BGreen}$apt_7${reset}) instalado com sucesso"
+		echo "${Green}[++]${reset} Iniciando instalacao (${BGreen}Sublime Text${reset})\n"
+		echo "${Green}[++]${reset} ${BBlue}Acessando pasta${reset}"
+		sleep 1
+		cd /tmp
+		echo "${Green}[++]${reset} ${BYellow}Iniciando Download${reset}"
+		sleep 1
+		echo "${BWhite}"
+		#wget https://download.sublimetext.com/sublime-text_build-3103_amd64.deb
+		#wget https://download.sublimetext.com/sublime_text_3_build_3103_x64.tar.bz2
+		wget https://download.sublimetext.com/sublime-text_build-3103_amd64.deb
+		echo "${reset}"
+		echo "${Green}[++]${reset} ${BBlue}Download finalizado${reset}"
+		sleep 1
+		echo "${Green}[++]${reset} ${BYellow}Instalando pacotes${reset}"
+		sleep 1
+		echo "${BWhite}"
+		#dpkg -i sublime-text_build-3103_amd64.deb
+		echo "${reset}"
+		echo "${Green}[++]${reset} ${BBlue}Removendo sobras${reset}"
+		sleep 1
+		rm sublime-text_build-3103_amd64.deb
+		sleep 1
+		echo "${Green}[++]${reset} ${BGreen}Sublime Text instalado com sucesso${reset}"			
+
 		fi ; enter;
 #########################################################################################################
-	elif [ "$item" -eq 10 ]; then	#################### ITEM 10 PROG 10
-		if which -a "$prog10"; then
-			echo " O Programa ${Red}$prog10${reset} ja esta instalado "
+	elif [ "$item" -eq 19 ]; then	#################### ITEM 19 PROG 19 apt_19="transmission"
+		if which -a "$apt_19"; then
+			echo " O Programa ${Red}$apt_19${reset} ja esta instalado "
 		else
-			echo "[++] Iniciando instalacao (${BGreen}$prog10${reset}) [++]\n"
-			apt-get install $prog10
-			echo "[++] (${BGreen}$apt_7${reset}) instalado com sucesso"
+			echo "[++] Iniciando instalacao (${BGreen}$apt_19${reset}) [++]\n"
+			apt-get install $apt_19 -y
+			echo "[++] (${BGreen}$apt_19${reset}) instalado com sucesso"
 		fi ; enter;
 #########################################################################################################
-	elif [ "$item" -eq 11 ]; then	#################### ITEM 11 PROG 11
-		if which -a "$prog11"; then
-			echo " O Programa ${Red}$prog11${reset} ja esta instalado "
+	elif [ "$item" -eq 20 ]; then	#################### ITEM 20 PROG 20 #   apt_20="VirtualBox"
+		if which -a "$apt_20"; then
+			echo " O Programa ${Red}$apt_20${reset} ja esta instalado "
 		else
-			echo "[++] Iniciando instalacao (${BGreen}$prog11${reset}) [++]\n"
-			apt-get install $prog11
-			echo "[++] (${BGreen}$apt_7${reset}) instalado com sucesso"
+			echo "${Green}[++]${reset} Iniciando instalacao (${BGreen}$apt_20${reset})\n"
+			echo "${Green}[++]${reset} ${BBlue}Acessando pasta${reset}"
+			sleep 1
+			cd /tmp
+			echo "${Green}[++]${reset} ${BYellow}Iniciando Download${reset}"
+			sleep 1
+			echo "${BWhite}"
+			wget http://download.virtualbox.org/virtualbox/5.0.16/VirtualBox-5.0.16-105871-Linux_amd64.run
+			echo "${reset}"
+			echo "${Green}[++]${reset} ${BBlue}Download finalizado${reset}"
+			sleep 1
+			echo "Aplicando permicoes chmod"
+			sleep 1
+			chmod +x VirtualBox-5.0.16-105871-Linux_amd64.run
+			echo "${Green}[++]${reset} ${BYellow}Instalando $apt_20${reset}"
+			sleep 1
+			echo "${BWhite}"
+			./VirtualBox-5.0.16-105871-Linux_amd64.run
+			echo "${reset}"
+			echo "${Green}[++]${reset} ${BBlue}Removendo sobras${reset}"
+			sleep 1
+			rm VirtualBox-5.0.16-105871-Linux_amd64.run
+			sleep 1
+			echo "${Green}[++]${reset} ${BGreen}$apt_20 instalado com sucesso${reset}"	
 		fi ; enter;
 #########################################################################################################
-		
+	elif [ "$item" -eq 21 ]; then	#################### ITEM 21 PROG 21 
+		if which -a "$apt_19"; then
+			echo " O Programa ${Red}$apt_19${reset} ja esta instalado "
+		else
+			echo "[++] Iniciando instalacao (${BGreen}$apt_19${reset}) [++]\n"
+			#wget https://download3.vmware.com/software/wkst/file/VMware-Workstation-Full-11.1.3-3206955.x86_64.bundle
+			echo "[++] (${BGreen}$apt_19${reset}) instalado com sucesso"
+		fi ; enter;	
 	fi ;
 }
 
@@ -318,6 +400,18 @@ until [ "$item" = "0" ]; do
 	7 ) aptGet ;;
 	8 ) aptGet ;;
 	9 ) aptGet ;;
+	10 ) aptGet ;;
+	11 ) aptGet ;;
+	12 ) aptGet ;;
+	13 ) aptGet ;;
+	14 ) aptGet ;;
+	15 ) aptGet ;;
+	16 ) aptGet ;;
+	17 ) aptGet ;;
+	18 ) aptGet ;;
+	19 ) aptGet ;;
+	20 ) aptGet ;;
+	21 ) aptGet ;;
 	99 ) apt-get install $all;;
         0 ) echo "[--] ${Red}Turning $script${reset}" ; sleep 2 ; clear ; exit ;;
 	*) echo "[++] ${Red}Invalid Option${reset}" ; enter;;
