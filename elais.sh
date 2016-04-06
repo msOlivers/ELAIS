@@ -44,22 +44,30 @@ enter() {
     echo -n "Press Enter to continue"
     clear
 }
-
-
-cmd="apt-get install"
 all="audacity etherape gnome-mplayer gpaint gufw kdenlive libreoffice mingw32 mitmf openshot transmission"
+apt_1="audacity"
+#	Adobe Flash Player
+#	chrome
+apt_2="cmatrix"
+apt_3="conky" #conky -x 989 -y 35 -q
+apt_4="deluge-gtk"
+apt_5="etherape"
+apt_6="filezilla"
+apt_7="gnome-mplayer"
+apt_8="gpaint"
+apt_9="guake"
+apt_10="gufw"
+apt_11="k3b"
+apt_12="libreoffice"
+apt_13="mingw32"
+apt_14="mitmf"
+apt_15="openshot"
+#	sublime
+apt_16="transmission"
+#	VirtualBox
+#	VMWare
 
-prog1="audacity"
-prog2="etherape"
-prog3="gnome-mplayer"
-prog4="gpaint"
-prog5="gufw"
-prog6="kdenlive"
-prog7="libreoffice"
-prog8="mingw32"
-prog9="mitmf"
-prog10="openshot"
-prog11="transmission"
+#chrome https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 
 item=
 until [ "$item" = "0" ]; do
