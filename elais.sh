@@ -63,26 +63,43 @@ prog11="transmission"
 
 item=
 until [ "$item" = "0" ]; do
-    menu
-    echo " ${BBlue}Select from the menu:${reset}\n"
-    echo " 1)  - Audacity"
-    echo " 2)  - Etherape"
-    echo " 3)  - Gnome-mplayer"
-    echo " 4)  - Gpaint"
-    echo " 5)  - Gufw"
-    echo " 6)  - Kdenlive"
-    echo " 7)  - Libreoffice"
-    echo " 8)  - Mingw32"
-    echo " 9)  - Mitmf"
-    echo " 10) - Openshot"
-    echo " 11) - Transmission"
-    echo " 99) - All"
-    echo ""
-    echo " 0 - Exit the ELAIS"
-    echo ""
-    echo -n "${Purple}elais${reset}> "
-    read item
-    echo ""
+	menu
+	sleep 3 ;
+	echo " ${BBlue}Select from the menu:${reset}\n"
+	echo "	
+  1 ) audacity
+  2 ) Adobe Flash Player
+  3 ) chrome
+  4 ) cmatrix
+  5 ) conky
+  6 ) deluge-gtk
+  7 ) etherape
+  8 ) filezilla
+  9 ) gnome-mplayer
+ 10 ) gpaint
+ 11 ) guake
+ 12 ) gufw
+ 13 ) k3b
+ 14 ) libreoffice
+ 15 ) mingw32
+ 16 ) mitmf
+ 17 ) openshot
+ 18 ) sublime
+ 19 ) transmission
+ 20 ) VirtualBox
+ 21 ) VMWare
+ 22 )
+ 23 )
+ 24 )
+ 25 )
+ 99) - All
+
+ 0 - Exit the ELAIS
+"
+echo " $var"	
+	echo -n "${Purple}elais${reset}> "
+	read item
+	echo ""
     case $item in
         1 ) echo "[++} Iniciando instalacao do (${BGreen}Audacity${reset}) [++]\n";
 		sleep 1;
