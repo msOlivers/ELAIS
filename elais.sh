@@ -42,7 +42,7 @@ ${BWhite}[++++++++++++++++++++++++++++++++++++++++++++++++++++++++++]
 
 enter() {
 	echo ""
-	echo -n "Press ${Green}Enter${reset} to continue "
+	echo -n "${Green}[++]${reset} Press ${Blue}Enter${reset} to continue "
 	read enter
 	clear
 }
@@ -89,26 +89,26 @@ aptGet() {
 		#if which -a "$prog2"; then
 		#	var="O Programa ${Red}$prog2${reset} ja esta instalado "
 		#else
-		echo "[++] Iniciando instalacao (${BGreen}Adobe Flash Player${reset}) 	[++]\n"
+		echo "${Green}[++]${reset} Iniciando instalacao (${BGreen}Adobe Flash Player${reset})\n"
 		#	apt-get install $prog2
 		#fi ; enter;
-		echo "[++] ${BBlue}Acessando pasta${reset} 				[++]"
+		echo "${Green}[++]${reset} ${BBlue}Acessando pasta${reset}"
 		sleep 1
 		cd /usr/lib/mozilla/plugins
-		echo "[++] ${BYellow}Inicinado Download${reset} 			[++]"
+		echo "${Green}[++]${reset} ${BYellow}Inicinado Download${reset}"
 		sleep 1
 		#wget https://fpdownload.adobe.com/get/flashplayer/pdc/11.2.202.577/install_flash_player_11_linux.x86_64.tar.gz
-		echo "[++] ${BBlue}Download finalizado${reset}			[++]"
+		echo "${Green}[++]${reset} ${BBlue}Download finalizado${reset}"
 		sleep 1
-		echo "[++] ${BYellow}Descompactando arquivo${reset} 			[++]"
+		echo "${Green}[++]${reset} ${BYellow}Descompactando arquivo${reset}"
 		sleep 1
 		tar -xf install_flash_player_11_linux.x86_64.tar.gz
-		echo "[++] ${BBlue}Removendo sobras${reset} 				[++]"
+		echo "${Green}[++]${reset} ${BBlue}Removendo sobras${reset}"
 		sleep 1
 		rm install_flash_player_11_linux.x86_64.tar.gz
 		rm readme.txt
 		sleep 1
-		echo "[++] ${BGreen}Adobe flash player instalado com sucesso${reset} 	[++]" ; enter;
+		echo "${Green}[++]${reset} ${BGreen}Adobe flash player instalado com sucesso${reset}" ; enter;
 #########################################################################################################
 	elif [ "$item" -eq 3 ]; then	#################### ITEM 3 PROG 3
 		if which -a "$prog3"; then
@@ -191,31 +191,27 @@ until [ "$item" = "0" ]; do
 	sleep 3 ;
 	echo " ${BBlue}Select from the menu:${reset}\n"
 	echo "	
-  1 ) audacity
-  2 ) Adobe Flash Player
-  3 ) chrome
-  4 ) cmatrix
-  5 ) conky
-  6 ) deluge-gtk
-  7 ) etherape
-  8 ) filezilla
-  9 ) gnome-mplayer
- 10 ) gpaint
- 11 ) guake
- 12 ) gufw
- 13 ) k3b
- 14 ) libreoffice
- 15 ) mingw32
- 16 ) mitmf
- 17 ) openshot
- 18 ) sublime
- 19 ) transmission
- 20 ) VirtualBox
- 21 ) VMWare
- 22 )
- 23 )
- 24 )
- 25 )
+  1 ) Audacity - é um software livre de edição digital de áudio disponível para: Windows, Linux e Mac e ainda em outros OS.
+  2 ) Flash Player - é um reprodutor de multimédia e aplicações amplamente 
+  3 ) Chrome - é um navegador desenvolvido pelo Google
+  4 ) Cmatrix - num sei oque é n, mas o pessoal usa, ai eu uso tmb
+  5 ) Conky - é um software monitor de sistema
+  6 ) Deluge-gtk - é uma aplicação BitTorrent leve, mas cheio de recursos escrito em Python
+  7 ) Etherape - é um monitor de rede gráfica para Unix modelado após etherman.
+  8 ) Filezilla - para transferir arquivos através da Internet.
+  9 ) Gnome-mplayer - também conhecido como Gmplayer, é basicamente uma interface gráfica (GUI) para o player multimídia Mplayer
+ 10 ) Gpaint - é um programa simples para desenhos. 
+ 11 ) Guake - é um terminal para Gnome no estilo suspenso, feito em Python
+ 12 ) Gufw - é uma interface gráfica para o UFW (Firewall Uncomplicated)
+ 13 ) K3b -  é um programa de computador que funciona como uma interface gráfica para a gravação de CD-ROMs e DVDs
+ 14 ) Libreoffice - é uma suíte de aplicativos livre para escritório disponível para Windows, Unix, Solaris, Linux e Mac OS X
+ 15 ) Mingw32 - (Minimalist GNU for Windows) é uma versão portada para Microsoft Windows do conjunto de ferramentas GNU
+ 16 ) Mitmf - visa proporcionar para ataques man-in-the-middle de rede, atualizar e melhorar ataques e técnicas existentes.
+ 17 ) Openshot - Video Editor um software livre e de código aberto de edição de vídeo para Linux, OS X e Windows
+ 18 ) Sublime - é um editor de texto sofisticado para código
+ 19 ) Transmission - é um leve e simples cliente de BitTorrent que apresenta uma interface gráfica bem simples e um back-end
+ 20 ) VirtualBox - VirtualBox é um software de virtualização 
+ 21 ) VMWare - VMWare é um software de virtualização 
  99) - All
 
  0 - Exit the ELAIS
@@ -235,7 +231,7 @@ echo " $var"
 	8 ) aptGet ;;
 	9 ) aptGet ;;
 	99 ) apt-get install $all;;
-        0 ) exit ;;
-	*) echo "invalid option" enter;;
+        0 ) echo "${Red}Quiting${reset}" ; exit ;;
+	*) echo "[++] ${Red}Invalid Option${reset}" ; enter;;
     esac
 done
