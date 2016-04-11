@@ -1,7 +1,7 @@
 #!/bin/sh
 # autor: msOliver
 # Colaborador: ishock
-# Colaborador: ishock
+# Colaborador: RobsonMr
 
 script="ELAIS"
 # Colors
@@ -41,379 +41,1228 @@ echo "
  [++++++++++++++++++++++++++++++++++++++++++++++++++++++++++] 
 "
 }
-menu(){
-	echo " ${BBlue}Select from the menu:${reset}"
-	echo "	
-  1 ) Audacity - é um software livre de edição digital de áudio disponível para: Windows, Linux e Mac e ainda em outros OS.
-  2 ) Flash Player - é um reprodutor de multimédia e aplicações amplamente 
-  3 ) Chrome - é um navegador desenvolvido pelo Google
-  4 ) Cmatrix - num sei oque é n, mas o pessoal usa, ai eu uso tmb
-  5 ) Conky - é um software monitor de sistema
-  6 ) Deluge-gtk - é uma aplicação BitTorrent leve, mas cheio de recursos escrito em Python
-  7 ) Etherape - é um monitor de rede gráfica para Unix modelado após etherman.
-  8 ) Filezilla - para transferir arquivos através da Internet.
-  9 ) Gnome-mplayer - também conhecido como Gmplayer, é basicamente uma interface gráfica (GUI) para o player multimídia Mplayer
- 10 ) Gpaint - é um programa simples para desenhos. 
- 11 ) Guake - é um terminal para Gnome no estilo suspenso, feito em Python
- 12 ) Gufw - é uma interface gráfica para o UFW (Firewall Uncomplicated)
- 13 ) K3b -  é um programa de computador que funciona como uma interface gráfica para a gravação de CD-ROMs e DVDs
- 14 ) Libreoffice - é uma suíte de aplicativos livre para escritório disponível para Windows, Unix, Solaris, Linux e Mac OS X
- 15 ) Mingw32 - (Minimalist GNU for Windows) é uma versão portada para Microsoft Windows do conjunto de ferramentas GNU
- 16 ) Mitmf - visa proporcionar para ataques man-in-the-middle de rede, atualizar e melhorar ataques e técnicas existentes.
- 17 ) Openshot - Video Editor um software livre e de código aberto de edição de vídeo para Linux, OS X e Windows
- 18 ) Sublime - é um editor de texto sofisticado para código
- 19 ) Transmission - é um leve e simples cliente de BitTorrent que apresenta uma interface gráfica bem simples e um back-end
- 20 ) VirtualBox - VirtualBox é um software de virtualização 
- 21 ) VMWare - VMWare é um software de virtualização 
- 99 ) - All
-
- 0 - Exit the ELAIS
-"
-}
-
 enter() {
 	echo ""
 	echo -n "${Green}[++]${reset} Press ${Blue}Enter${reset} to continue "
 	read enter
 	clear
 }
-
-all="audacity etherape gnome-mplayer gpaint gufw kdenlive libreoffice mingw32 mitmf openshot transmission"
-apt_1="audacity"
-#   2 Adobe Flash Player
-#   3 chrome
-apt_4="cmatrix"
-apt_5="conky" #conky -x 989 -y 35 -q
-apt_6="deluge-gtk"
-apt_7="etherape"
-apt_8="filezilla"
-apt_9="gnome-mplayer"
-apt_10="gpaint"
-apt_11="guake"
-apt_12="gufw"
-apt_13="k3b"
-apt_14="libreoffice"
-apt_15="mingw32"
-apt_16="mitmf"
-apt_17="openshot"
-#   18 sublime
-apt_19="transmission"
-apt_20="VirtualBox"
-apt_21="VMWare"
-
-#install gedit-plugins
-
-#chrome https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-
-item=
-aptGet() {
-#########################################################################################################
-	if [ "$item" -eq 1 ]; then	#################### ITEM 1 PROG 1 apt_1="audacity"
-		if which -a "$apt_1"; then
-			echo " O Programa ${Red}$apt_1${reset} ja esta instalado "
-		else
-			echo "[++] Iniciando instalacao (${BGreen}$apt_1${reset}) \n"
-			echo "${BWhite}"
-			apt-get install $apt_1 -y
-			echo "${reset}"
-			echo "[++] (${BGreen}$apt_6${reset}) instalado com sucesso"
-		fi ; enter;
-#########################################################################################################
-	elif [ "$item" -eq 2 ]; then	#################### ITEM 2 PROG 2  Adobe Flash Player
-		echo "${Green}[++]${reset} Iniciando instalacao (${BGreen}Adobe Flash Player${reset})\n"
-		echo "${Green}[++]${reset} ${BBlue}Acessando pasta${reset}"
-		sleep 1
-		cd /usr/lib/mozilla/plugins
-		echo "${Green}[++]${reset} ${BYellow}Inicinado Download${reset}"
+checkLinuxHeaders(){ #Linux-headers check
+	dir=$(find /usr/src -type d -name linux-headers-$(uname -r))
+	if [ -n "$dir" ] ; then 
+		return 0
+	else
+		echo "${BWhite} Linux-headers é necessario e nao esta instalado${reset}"
+		sleep 2
+		echo "${BWhite} Inicializando instalacao automatica${reset}"
+		sleep 2
+		echo "${BWhite} Aplicando Update${reset}"
+		sleep 2
+		echo "${BWhite}"
+		apt-get update #&& apt-get upgrade
+		echo "${reset}"
+		echo "\n${BWhite} Iniciando instalacao\n${reset}"
 		sleep 1
 		echo "${BWhite}"
-		wget https://fpdownload.adobe.com/get/flashplayer/pdc/11.2.202.577/install_flash_player_11_linux.x86_64.tar.gz
+		#apt-get install linux-headers-$(uname -r)
 		echo "${reset}"
-		echo "${Green}[++]${reset} ${BBlue}Download finalizado${reset}"
-		sleep 1
-		echo "${Green}[++]${reset} ${BYellow}Descompactando arquivo${reset}"
-		sleep 1
-		tar -xf install_flash_player_11_linux.x86_64.tar.gz
-		echo "${Green}[++]${reset} ${BBlue}Removendo sobras${reset}"
-		sleep 1
-		rm install_flash_player_11_linux.x86_64.tar.gz
-		rm readme.txt
-		sleep 1
-		echo "${Green}[++]${reset} ${BGreen}Adobe flash player instalado com sucesso${reset}" ; enter;
-#########################################################################################################
-	elif [ "$item" -eq 3 ]; then	#################### ITEM 3 PROG 3 CHROME
-		if which -a "$prog3"; then
-			var="O Programa ${Red}$prog3${reset} ja esta instalado "
-		else
-			echo "[++} Iniciando instalacao (${BGreen}$prog3${reset}) [++]\n"
-			apt-get install $prog3 -y
-		fi ; enter;
-#########################################################################################################
-	elif [ "$item" -eq 4 ]; then	#################### ITEM 4 PROG 4 apt_4="cmatrix"
-		if which -a "$apt_4"; then
-			echo " O Programa ${Red}$apt_4${reset} ja esta instalado"
-		else
-			echo "[++] Iniciando instalacao (${BGreen}$apt_4${reset}) [++]\n"
-			echo "${BWhite}"
-			apt-get install $apt_4 -y
-			echo "${reset}"
-			echo "[++] (${BGreen}$apt_4${reset}) instalado com sucesso"
-		fi ; enter;
-#########################################################################################################
-	elif [ "$item" -eq 5 ]; then	#################### ITEM 5 PROG 5 apt_5="conky"
-		if which -a "$apt_5"; then
-			echo " O Programa ${Red}$apt_5${reset} ja esta instalado "
-		else
-			echo "[++] Iniciando instalacao (${BGreen}$apt_5${reset}) [++]\n"
-			echo "${BWhite}"
-			apt-get install $apt_5 -y
-			echo "${reset}"
-			echo "[++] (${BGreen}$apt_5${reset}) instalado com sucesso"
-		fi ; enter;
-#########################################################################################################
-	elif [ "$item" -eq 6 ]; then	#################### ITEM 6 PROG 6 apt_6="deluge-gtk"
-		if which -a "$apt_6"; then
-			echo " O Programa ${Red}$apt_6${reset} ja esta instalado "
-		else
-			echo "[++] Iniciando instalacao (${BGreen}$apt_6${reset}) [++]\n"
-			echo "${BWhite}"
-			apt-get install $apt_6 -y
-			echo "${reset}"
-			echo "[++] (${BGreen}$apt_6${reset}) instalado com sucesso"
-		fi ; enter;
-#########################################################################################################
-	elif [ "$item" -eq 7 ]; then	#################### ITEM 7 PROG 7 apt_7="etherape"
-		if which -a "$apt_7"; then
-			echo " O Programa ${Red}$apt_7${reset} ja esta instalado "
-		else
-			echo "[++] Iniciando instalacao (${BGreen}$apt_7${reset}) [++]\n"
-			echo "${BWhite}"
-			apt-get install $apt_7 -y
-			echo "${reset}"
-			echo "[++] (${BGreen}$apt_7${reset}) instalado com sucesso"
-		fi ; enter;
-#########################################################################################################
-	elif [ "$item" -eq 8 ]; then	#################### ITEM 8 PROG 8 apt_8="filezilla"
-		if which -a "$apt_8"; then
-			echo " O Programa ${Red}$apt_8${reset} ja esta instalado "
-		else
-			echo "[++] Iniciando instalacao (${BGreen}$apt_8${reset}) [++]\n"
-			echo "${BWhite}"
-			apt-get install $apt_8 -y
-			echo "${reset}"
-			echo "[++] (${BGreen}$apt_8${reset}) instalado com sucesso"
-		fi ; enter;
-#########################################################################################################
-	elif [ "$item" -eq 9 ]; then	#################### ITEM 9 PROG 9 apt_9="gnome-mplayer"
-		if which -a "$apt_9"; then
-			echo " O Programa ${Red}$apt_9${reset} ja esta instalado "
-		else
-			echo "[++] Iniciando instalacao (${BGreen}$apt_9${reset}) [++]\n"
-			echo "${BWhite}"
-			apt-get install $apt_9 -y
-			echo "${reset}"
-			echo "[++] (${BGreen}$apt_9${reset}) instalado com sucesso"
-		fi ; enter;
-#########################################################################################################
-	elif [ "$item" -eq 10 ]; then	#################### ITEM 10 PROG 10 apt_10="gpaint"
-		if which -a "$apt_10"; then
-			echo " O Programa ${Red}$apt_10${reset} ja esta instalado "
-		else
-			echo "[++] Iniciando instalacao (${BGreen}$apt_10${reset}) [++]\n"
-			echo "${BWhite}"
-			apt-get install $apt_10 -y
-			echo "${reset}"
-			echo "[++] (${BGreen}$apt_10${reset}) instalado com sucesso"
-		fi ; enter;
-#########################################################################################################
-	elif [ "$item" -eq 11 ]; then	#################### ITEM 11 PROG 11 apt_11="guake"
-		if which -a "$apt_11"; then
-			echo " O Programa ${Red}$apt_11${reset} ja esta instalado "
-		else
-			echo "[++] Iniciando instalacao (${BGreen}$apt_11${reset}) [++]\n"
-			echo "${BWhite}"
-			apt-get install $apt_11 -y
-			echo "${reset}"
-			echo "[++] (${BGreen}$apt_11${reset}) instalado com sucesso"
-		fi ; enter;
-#########################################################################################################
-	elif [ "$item" -eq 12 ]; then	#################### ITEM 12 PROG 12 apt_12="gufw"
-		if which -a "$apt_12"; then
-			echo " O Programa ${Red}$apt_12${reset} ja esta instalado "
-		else
-			echo "[++] Iniciando instalacao (${BGreen}$apt_12${reset}) [++]\n"
-			echo "${BWhite}"
-			apt-get install $apt_12 -y
-			echo "${reset}"
-			echo "[++] (${BGreen}$apt_12${reset}) instalado com sucesso"
-		fi ; enter;
-#########################################################################################################
-	elif [ "$item" -eq 13 ]; then	#################### ITEM 13 PROG 13 apt_13="k3b"
-		if which -a "$apt_13"; then
-			echo " O Programa ${Red}$apt_13${reset} ja esta instalado "
-		else
-			echo "[++] Iniciando instalacao (${BGreen}$apt_13${reset}) [++]\n"
-			echo "${BWhite}"
-			apt-get install $apt_13 -y
-			echo "${reset}"
-			echo "[++] (${BGreen}$apt_13${reset}) instalado com sucesso"
-		fi ; enter;
-#########################################################################################################
-	elif [ "$item" -eq 14 ]; then	#################### ITEM 14 PROG 14 apt_14="libreoffice"
-		if which -a "$apt_14"; then
-			echo " O Programa ${Red}$apt_14${reset} ja esta instalado "
-		else
-			echo "[++] Iniciando instalacao (${BGreen}$apt_14${reset}) [++]\n"
-			echo "${BWhite}"
-			apt-get install $apt_14 -y
-			echo "${reset}"
-			echo "[++] (${BGreen}$apt_14${reset}) instalado com sucesso"
-		fi ; enter;
-#########################################################################################################
-	elif [ "$item" -eq 15 ]; then	#################### ITEM 15 PROG 15 apt_15="mingw32"
-		if which -a "$apt_15"; then
-			echo " O Programa ${Red}$apt_15${reset} ja esta instalado "
-		else
-			echo "[++] Iniciando instalacao (${BGreen}$apt_15${reset}) [++]\n"
-			echo "${BWhite}"
-			apt-get install $apt_15 -y
-			echo "${reset}"
-			echo "[++] (${BGreen}$apt_15${reset}) instalado com sucesso"
-		fi ; enter;
-#########################################################################################################
-	elif [ "$item" -eq 16 ]; then	#################### ITEM 16 PROG 16 apt_16="mitmf"
-		if which -a "$apt_16"; then
-			echo " O Programa ${Red}$apt_16${reset} ja esta instalado "
-		else
-			echo "[++] Iniciando instalacao (${BGreen}$apt_16${reset}) [++]\n"
-			echo "${BWhite}"
-			apt-get install $apt_16 -y
-			echo "${reset}"
-			echo "[++] (${BGreen}$apt_16${reset}) instalado com sucesso"
-		fi ; enter;
-#########################################################################################################
-	elif [ "$item" -eq 17 ]; then	#################### ITEM 17 PROG 17 apt_17="openshot"
-		if which -a "$apt_17"; then
-			echo " O Programa ${Red}$apt_17${reset} ja esta instalado "
-		else
-			echo "[++] Iniciando instalacao (${BGreen}$apt_17${reset}) [++]\n"
-			echo "${BWhite}"
-			apt-get install $apt_17 -y
-			echo "${reset}"
-			echo "[++] (${BGreen}$apt_17${reset}) instalado com sucesso"
-		fi ; enter;
-#########################################################################################################
-	elif [ "$item" -eq 18 ]; then	#################### ITEM 18 PROG 18 #   18 sublime
-		if which -a "$prog9"; then
-			echo " O Programa ${Red}$prog9${reset} ja esta instalado "
-		else
-		echo "${Green}[++]${reset} Iniciando instalacao (${BGreen}Sublime Text${reset})\n"
-		echo "${Green}[++]${reset} ${BBlue}Acessando pasta${reset}"
-		sleep 1
-		cd /tmp
-		echo "${Green}[++]${reset} ${BYellow}Iniciando Download${reset}"
-		sleep 1
-		echo "${BWhite}"
-		#wget https://download.sublimetext.com/sublime-text_build-3103_amd64.deb
-		#wget https://download.sublimetext.com/sublime_text_3_build_3103_x64.tar.bz2
-		wget https://download.sublimetext.com/sublime-text_build-3103_amd64.deb
-		echo "${reset}"
-		echo "${Green}[++]${reset} ${BBlue}Download finalizado${reset}"
-		sleep 1
-		echo "${Green}[++]${reset} ${BYellow}Instalando pacotes${reset}"
-		sleep 1
-		echo "${BWhite}"
-		#dpkg -i sublime-text_build-3103_amd64.deb
-		echo "${reset}"
-		echo "${Green}[++]${reset} ${BBlue}Removendo sobras${reset}"
-		sleep 1
-		rm sublime-text_build-3103_amd64.deb
-		sleep 1
-		echo "${Green}[++]${reset} ${BGreen}Sublime Text instalado com sucesso${reset}"			
+		echo "${BWhite} Instalacao Concluida\n${reset}"
+	fi ; #enter;
+}
+menuPrincipal(){
+	echo " ${BBlue}Select from the menu:${reset}"
+	echo ""
+}
+menuEditorsMusicVideo(){ 
+	option=
+	local apt_1="audacity"
+	local apt_2="kazam"
+	local apt_3="kdenlive"
+	local apt_4="openshot"
+	aptGetInstallEditorsMusicVideo() {
+		if [ "$option" -eq 1 ]; then
+			if which -a "$apt_1"; then
+				echo "\n O Programa ${Red}$apt_1${reset} ja esta instalado "
+			else
+				echo "[++] Iniciando instalacao (${BGreen}$apt_1${reset}) \n"
+				echo "${BWhite}"
+				apt-get install $apt_1 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_1${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 2 ]; then
+			if which -a "$apt_2"; then
+				echo "\n O Programa ${Red}$apt_2${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_2${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_2 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_2${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 3 ]; then
+			if which -a "$apt_3"; then
+				echo "\n O Programa ${Red}$apt_3${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_3${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_3 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_3${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 4 ]; then
+			if which -a "$apt_4"; then
+				echo "\n O Programa ${Red}$apt_4${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_4${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_4 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_4${reset}) instalado com sucesso"
+			fi ; enter;
+		fi;
+	}
+	until [ "$option" = "0" ]; do
+		banner
+		echo "${BBlue} You are in:${reset}${BGreen} Editors Music & Video ${reset}"
+		echo " ${BBlue}Select from the menu:${reset}"
+		echo "
+  1) audacity - 
+  2) kazam - 
+  3) kdenlive - 
+  4) openshot - 
+ 
+  0) return menu principal
+"
+		echo -n "${Purple}elais/EditorsMusicVideo${reset}> "
+		read option
+		case $option in
+			0 ) clear ;; #Return
+        		1 ) aptGetInstallEditorsMusicVideo ;;
+        		2 ) aptGetInstallEditorsMusicVideo ;;
+        		3 ) aptGetInstallEditorsMusicVideo ;;
+			4 ) aptGetInstallEditorsMusicVideo ;;
+			*) echo "[++] ${Red}Invalid Option${reset}" ; enter;;
+    		esac
+	done	
+}
+menuImageEditors(){ 
+	option=
+	local apt_1="darktable" 
+	local apt_2="digikam"
+	local apt_3="f-spot"
+	local apt_4="fotoxx"
+	local apt_5="gimp"
+	local apt_6="gpaint"
+	#local apt_7="photivo"
+	#local apt_8="rstudio"
+	#local apt_9="rawtherapee"
+	local OS=$(lsb_release -si) 
+	aptGetInstallImageEditors() {
+		if [ "$option" -eq 1 ]; then
+			if which -a "$apt_1"; then
+				echo " \n O Programa ${Red}$apt_1${reset} ja esta instalado "
+			else
+				if [ -n "$OS" ]; then
+					echo "[++] Iniciando instalacao (${BGreen}$apt_1${reset}) \n"
+					echo "${BWhite}"
+					apt-get install $apt_1 # -y
+					echo "${reset}"
+					echo "[++] (${BGreen}$apt_1${reset}) instalado com sucesso"
+				else
+					echo "[++] Iniciando instalacao (${BGreen}$apt_1${reset}) \n"
+					sleep 1
+					
+					if which -a "git"; then
+						return 0
+					else
+						echo "Instalando git"
+						apt-get install git -y
+					fi;
+					echo "Instalando dependencias\n"
+					echo "${BWhite}"
+					apt-get install debhelper dpkg-dev fakeroot -y
+					apt-get build-dep darktable -y
+					apt-get install gtk+-3.0
+					echo "${reset}"					
+					sleep 1
+					cd /tmp
+					git clone https://github.com/darktable-org/darktable.git
+					cd darktable
+					./build.sh --prefix /opt/darktable --build-type Release
+					echo "[++] (${BGreen}$apt_1${reset}) instalado com sucesso"
+				fi;
+			fi ; enter;
+		elif [ "$option" -eq 2 ]; then
+			if which -a "$apt_2"; then
+				echo "\n O Programa ${Red}$apt_2${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_2${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_2 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_2${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 3 ]; then
+			if which -a "$apt_3"; then
+				echo "\n O Programa ${Red}$apt_3${reset} ja esta instalado "
+			else	
+				if [ -n "$OS" ]; then
+					echo "${Red} $apt_3${reset} Nao esta disponivel para o seu sistema $OS"
+				else
+					echo "[++} Iniciando instalacao (${BGreen}$apt_3${reset}) [++]\n"
+					echo "${BWhite}"
+					apt-get install $apt_3 -y
+					echo "${reset}"
+					echo "[++] (${BGreen}$apt_3${reset}) instalado com sucesso"
+					
+				fi;
+			fi ; enter;
+		elif [ "$option" -eq 4 ]; then
+			if which -a "$apt_4"; then
+				echo "\n O Programa ${Red}$apt_4${reset} ja esta instalado "
+			else
+				if [ -n "$OS" ]; then
+					echo "[++} Iniciando instalacao (${BGreen}$apt_4${reset}) [++]\n"
+					cd /tmp
+					echo "${BWhite}"
+					wget http://kornelix.net/downloads/packages/fotoxx-16.02.1-x86_64.deb -O fotoxx.deb
+					echo "${reset}"
+					dpkg -i fotoxx.deb
+					apt-get install -f
+					rm fotoxx.deb
+					echo "[++] (${BGreen}$apt_4${reset}) instalado com sucesso"
+				else
+					echo "[++} Iniciando instalacao (${BGreen}$apt_4${reset}) [++]\n"
+					add-apt-repository ppa:dhor/myway
+					echo "${BWhite}"
+					apt-get update
+					apt-get install fotoxx
+					echo "${reset}"
+					echo "[++] (${BGreen}$apt_4${reset}) instalado com sucesso"
+				fi;			
+			fi ; enter;
+		elif [ "$option" -eq 5 ]; then
+			if which -a "$apt_5"; then
+				echo "\n O Programa ${Red}$apt_5${reset} ja esta instalado "
+			else
+				if [ -n "$OS" ]; then
+					echo "[++} Iniciando instalacao (${BGreen}$apt_5${reset}) [++]\n"
+					apt-get install $apt_5 -y
+					echo "[++] (${BGreen}$apt_5${reset}) instalado com sucesso"
+				else
+					echo "[++} Iniciando instalacao (${BGreen}$apt_5${reset}) [++]\n"
+					add-apt-repository ppa:otto-kesselgulasch/gimp
+					echo "${BWhite}"
+					apt-get update && apt-get install $apt_5 -y
+					echo "${reset}"
+					echo "[++] (${BGreen}$apt_5${reset}) instalado com sucesso"
+				fi;
 
-		fi ; enter;
-#########################################################################################################
-	elif [ "$item" -eq 19 ]; then	#################### ITEM 19 PROG 19 apt_19="transmission"
-		if which -a "$apt_19"; then
-			echo " O Programa ${Red}$apt_19${reset} ja esta instalado "
-		else
-			echo "[++] Iniciando instalacao (${BGreen}$apt_19${reset}) [++]\n"
-			apt-get install $apt_19 -y
-			echo "[++] (${BGreen}$apt_19${reset}) instalado com sucesso"
-		fi ; enter;
-#########################################################################################################
-	elif [ "$item" -eq 20 ]; then	#################### ITEM 20 PROG 20 #   apt_20="VirtualBox"
-		if which -a "$apt_20"; then
-			echo " O Programa ${Red}$apt_20${reset} ja esta instalado "
-		else
-			echo "${Green}[++]${reset} Iniciando instalacao (${BGreen}$apt_20${reset})\n"
-			echo "${Green}[++]${reset} ${BBlue}Acessando pasta${reset}"
-			sleep 1
-			cd /tmp
-			echo "${Green}[++]${reset} ${BYellow}Iniciando Download${reset}"
-			sleep 1
-			echo "${BWhite}"
-			wget http://download.virtualbox.org/virtualbox/5.0.16/VirtualBox-5.0.16-105871-Linux_amd64.run
-			echo "${reset}"
-			echo "${Green}[++]${reset} ${BBlue}Download finalizado${reset}"
-			sleep 1
-			echo "Aplicando permicoes chmod"
-			sleep 1
-			chmod +x VirtualBox-5.0.16-105871-Linux_amd64.run
-			echo "${Green}[++]${reset} ${BYellow}Instalando $apt_20${reset}"
-			sleep 1
-			echo "${BWhite}"
-			./VirtualBox-5.0.16-105871-Linux_amd64.run
-			echo "${reset}"
-			echo "${Green}[++]${reset} ${BBlue}Removendo sobras${reset}"
-			sleep 1
-			rm VirtualBox-5.0.16-105871-Linux_amd64.run
-			sleep 1
-			echo "${Green}[++]${reset} ${BGreen}$apt_20 instalado com sucesso${reset}"	
-		fi ; enter;
-#########################################################################################################
-	elif [ "$item" -eq 21 ]; then	#################### ITEM 21 PROG 21 
-		if which -a "$apt_19"; then
-			echo " O Programa ${Red}$apt_19${reset} ja esta instalado "
-		else
-			echo "[++] Iniciando instalacao (${BGreen}$apt_19${reset}) [++]\n"
-			#wget https://download3.vmware.com/software/wkst/file/VMware-Workstation-Full-11.1.3-3206955.x86_64.bundle
-			echo "[++] (${BGreen}$apt_19${reset}) instalado com sucesso"
-		fi ; enter;	
-	fi ;
+			fi ; enter;
+		elif [ "$option" -eq 6 ]; then
+			if which -a "$apt_6"; then
+				echo "\n O Programa ${Red}$apt_6${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_6${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_6 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_6${reset}) instalado com sucesso"
+			fi ; enter;
+		fi;
+	}
+	until [ "$option" = "0" ]; do
+		banner
+		echo "${BBlue} You are in:${reset}${BGreen} Image Editors ${reset}"
+		echo " ${BBlue}Select from the menu:${reset}"
+		echo "
+ 1) Darktable
+ 2) DigiKam
+ 3) F-Spot
+ 4) Fotoxx
+ 5) Gimp
+ 6) Gpaint 
+  
+ 0) return menu principal
+"
+		echo -n "${Purple}elais/ImageEditors${reset}> "
+		read option
+		case $option in
+			0 ) clear ;; #Return
+        		1 ) aptGetInstallImageEditors ;;
+        		2 ) aptGetInstallImageEditors ;;
+        		3 ) aptGetInstallImageEditors ;;
+			4 ) aptGetInstallImageEditors ;;
+			5 ) aptGetInstallImageEditors ;;
+			6 ) aptGetInstallImageEditors ;;
+			*) echo "[++] ${Red}Invalid Option${reset}" ; enter;;
+    		esac
+	done	
+}
+menuMultimidia(){ 
+	option=
+	local apt_1="gnome-mplayer"
+	local apt_2="k3b"
+	aptGetInstallMultimidia() {
+		if [ "$option" -eq 1 ]; then
+			if which -a "$apt_1"; then
+				echo " \n O Programa ${Red}$apt_1${reset} ja esta instalado "
+			else
+				echo "[++] Iniciando instalacao (${BGreen}$apt_1${reset}) \n"
+				echo "${BWhite}"
+				apt-get install $apt_1 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_1${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 2 ]; then	
+			if which -a "$apt_2"; then
+				echo "\n O Programa ${Red}$apt_2${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_2${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_2 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_2${reset}) instalado com sucesso"
+			fi ; enter;
+		fi;
+	}
+	until [ "$option" = "0" ]; do
+		banner
+		echo "${BBlue} You are in:${reset}${BGreen} Multimidia ${reset}"
+		echo " ${BBlue}Select from the menu:${reset}"
+		echo "
+ 1) Gnome-mplayer
+ 2) K3b
+  
+ 0) return menu principal
+"
+		echo -n "${Purple}elais/Multimidia${reset}> "
+		read option
+		case $option in
+			0 ) clear ;; #Return
+        		1 ) aptGetInstallMultimidia ;;
+        		2 ) aptGetInstallMultimidia ;;
+			*) echo "[++] ${Red}Invalid Option${reset}" ; enter;;
+    		esac
+	done 
+}
+menuNetworkMappings(){ 
+	option=
+	local apt_1="dsniff"
+	local apt_2="ettercap-common"
+	local apt_3="ettercap-graphical"
+	local apt_4="etherape"
+	local apt_5="kismet"
+	local apt_6="nmap"
+	local apt_7="sniffit"
+	local apt_8="snort"
+	local apt_9="tshark"
+	local apt_10="wireshark"
+	aptGetInstallNetworkMappings() {
+		if [ "$option" -eq 1 ]; then
+			if which -a "$apt_1"; then
+				echo " \n O Programa ${Red}$apt_1${reset} ja esta instalado "
+			else
+				echo "[++] Iniciando instalacao (${BGreen}$apt_1${reset}) \n"
+				echo "${BWhite}"
+				apt-get install $apt_1 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_1${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 2 ]; then	
+			if which -a "$apt_2"; then
+				echo "\n O Programa ${Red}$apt_2${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_2${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_2 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_2${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 3 ]; then	
+			if which -a "$apt_3"; then
+				echo "\n O Programa ${Red}$apt_3${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_3${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_3 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_3${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 4 ]; then	
+			if which -a "$apt_4"; then
+				echo "\n O Programa ${Red}$apt_4${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_4${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_4 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_4${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 5 ]; then	
+			if which -a "$apt_5"; then
+				echo "\n O Programa ${Red}$apt_5${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_5${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_5 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_5${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 6 ]; then	
+			if which -a "$apt_6"; then
+				echo "\n O Programa ${Red}$apt_6${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_6${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_6 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_6${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 7 ]; then	
+			if which -a "$apt_7"; then
+				echo "\n O Programa ${Red}$apt_7${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_7${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_7 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_7${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 8 ]; then	
+			if which -a "$apt_8"; then
+				echo "\n O Programa ${Red}$apt_8${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_8${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_8 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_8${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 9 ]; then	
+			if which -a "$apt_9"; then
+				echo "\n O Programa ${Red}$apt_9${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_9${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_9 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_9${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 10 ]; then	
+			if which -a "$apt_10"; then
+				echo "\n O Programa ${Red}$apt_10${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_10${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_10 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_10${reset}) instalado com sucesso"
+			fi ; enter;
+		fi;
+	}
+	until [ "$option" = "0" ]; do
+		banner
+		echo "${BBlue} You are in:${reset}${BGreen} Network Mappings ${reset}"
+		echo " ${BBlue}Select from the menu:${reset}"
+		echo "
+  1) dsniff
+  2) ettercap-common
+  3) ettercap-graphical
+  4) etherape
+  5) kismet
+  6) nmap
+  7) sniffit
+  8) snort
+  9) tshark
+ 10) wireshark
+  
+ 0) return menu principal
+"
+		echo -n "${Purple}elais/NetworkMappings${reset}> "
+		read option
+		case $option in
+			0 ) clear ;; #Return
+        		1 ) aptGetInstallNetworkMappings ;;
+        		2 ) aptGetInstallNetworkMappings ;;
+        		3 ) aptGetInstallNetworkMappings ;;
+			4 ) aptGetInstallNetworkMappings ;;
+			5 ) aptGetInstallNetworkMappings ;;
+			6 ) aptGetInstallNetworkMappings ;;
+			7 ) aptGetInstallNetworkMappings ;;
+			8 ) aptGetInstallNetworkMappings ;;
+			9 ) aptGetInstallNetworkMappings ;;
+			*) echo "[++] ${Red}Invalid Option${reset}" ; enter;;
+    		esac
+	done  
+}
+menuOffice(){ 
+	option=
+	local apt_1="libreoffice"
+	aptGetInstallOffice() {
+		if [ "$option" -eq 1 ]; then
+			if which -a "$apt_1"; then
+				echo " \n O Programa ${Red}$apt_1${reset} ja esta instalado "
+			else
+				echo "[++] Iniciando instalacao (${BGreen}$apt_1${reset}) \n"
+				echo "${BWhite}"
+				apt-get install $apt_1 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_1${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 2 ]; then	
+			if which -a "$apt_2"; then
+				echo "\n O Programa ${Red}$apt_2${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_2${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_2 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_2${reset}) instalado com sucesso"
+			fi ; enter;
+		fi;
+	}
+	until [ "$option" = "0" ]; do
+		banner
+		echo "${BBlue} You are in:${reset}${BGreen} Office${reset}"
+		echo " ${BBlue}Select from the menu:${reset}"
+		echo "
+ 1) Libreoffice - é uma suíte de aplicativos livre para escritório disponível para Windows, Unix, Solaris, Linux e Mac OS X
+  
+ 0) return menu principal
+"
+		echo -n "${Purple}elais/Office${reset}> "
+		read option
+		case $option in
+			0 ) clear ;; #Return
+        		1 ) aptGetInstallOffice ;;
+#        		2 ) aptGetInstallOffice ;;
+			* ) echo "[++] ${Red}Invalid Option${reset}" ; enter;;
+    		esac
+	done  
+}
+menuPackageManager(){ 
+	option=
+	local apt_1="deluge-gtk"
+	local apt_2="gdebi"
+	local apt_3="synaptic"
+	local apt_4="transmission"
+	aptGetInstallPackageManager() {
+		if [ "$option" -eq 1 ]; then
+			if which -a "$apt_1"; then
+				echo " \n O Programa ${Red}$apt_1${reset} ja esta instalado "
+			else
+				echo "[++] Iniciando instalacao (${BGreen}$apt_1${reset}) \n"
+				echo "${BWhite}"
+				apt-get install $apt_1 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_1${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 2 ]; then	
+			if which -a "$apt_2"; then
+				echo "\n O Programa ${Red}$apt_2${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_2${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_2 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_2${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 3 ]; then	
+			if which -a "$apt_3"; then
+				echo "\n O Programa ${Red}$apt_3${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_3${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_3 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_3${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 4 ]; then	
+			if which -a "$apt_4"; then
+				echo "\n O Programa ${Red}$apt_4${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_4${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_4 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_4${reset}) instalado com sucesso"
+			fi ; enter;
+		fi;
+	}
+	until [ "$option" = "0" ]; do
+		banner
+		echo "${BBlue} You are in:${reset}${BGreen} Package Manager${reset}"
+		echo " ${BBlue}Select from the menu:${reset}"
+		echo "
+ 1) Deluge-gtk
+ 2) Gdebi
+ 3) Synaptic
+ 4) Transmission
+  
+ 0) return menu principal
+"
+		echo -n "${Purple}elais/PackageManager${reset}> "
+		read option
+		case $option in
+			0 ) clear ;; #Return
+        		1 ) aptGetInstallPackageManager ;;
+        		2 ) aptGetInstallPackageManager ;;
+        		3 ) aptGetInstallPackageManager ;;
+			4 ) aptGetInstallPackageManager ;;
+			*) echo "[++] ${Red}Invalid Option${reset}" ; enter;;
+    		esac
+	done 
+}
+menuServers(){ 
+	option=
+	local apt_1="apache2"
+	local apt_2="mysql-server"
+	local apt_3="php5"
+	local apt_4="php5-cgi"
+	local apt_5="php5-mcrypt"
+	local apt_6="php5-mysql"
+	local apt_7="phpmyadmin "
+	aptGetInstallServers() {
+		if [ "$option" -eq 1 ]; then
+			if which -a "$apt_1"; then
+				echo " \n O Programa ${Red}$apt_1${reset} ja esta instalado "
+			else
+				echo "[++] Iniciando instalacao (${BGreen}$apt_1${reset}) \n"
+				echo "${BWhite}"
+				apt-get install $apt_1 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_1${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 2 ]; then	
+			if which -a "$apt_2"; then
+				echo "\n O Programa ${Red}$apt_2${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_2${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_2 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_2${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 3 ]; then	
+			if which -a "$apt_3"; then
+				echo "\n O Programa ${Red}$apt_3${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_3${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_3 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_3${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 4 ]; then	
+			if which -a "$apt_4"; then
+				echo "\n O Programa ${Red}$apt_4${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_4${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_4 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_4${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 5 ]; then	
+			if which -a "$apt_5"; then
+				echo "\n O Programa ${Red}$apt_5${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_5${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_5 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_5${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 6 ]; then	
+			if which -a "$apt_6"; then
+				echo "\n O Programa ${Red}$apt_6${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_6${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_6 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_6${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 7 ]; then	
+			if which -a "$apt_7"; then
+				echo "\n O Programa ${Red}$apt_7${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_7${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_7 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_7${reset}) instalado com sucesso"
+			fi ; enter;
+		fi;
+	}
+	until [ "$option" = "0" ]; do
+		banner
+		echo "${BBlue} You are in:${reset}${BGreen} Servers ${reset}"
+		echo " ${BBlue}Select from the menu:${reset}"
+		echo "
+ 1) apache2
+ 2) mysql-server
+ 3) php5
+ 4) php5-cgi
+ 5) php5-mcrypt
+ 6) php5-mysql
+ 7) phpmyadmin
+  
+ 0) return menu principal
+"
+		echo -n "${Purple}elais/Servers${reset}> "
+		read option
+		case $option in
+			0 ) clear ;; #Return
+        		1 ) aptGetInstallServers ;;
+        		2 ) aptGetInstallServers ;;
+        		3 ) aptGetInstallServers ;;
+			4 ) aptGetInstallServers ;;
+			5 ) aptGetInstallServers ;;
+			6 ) aptGetInstallServers ;;
+			7 ) aptGetInstallServers ;;
+			* ) echo "[++] ${Red}Invalid Option${reset}" ; enter;;
+    		esac
+	done 
+}
+menuSystemMonitor(){ 
+	option=
+	local apt_1="conky"
+	local apt_2="indicator-sysmonitor"
+	local apt_3="screenlet"
+	aptGetInstallSystemMonitor() {
+		if [ "$option" -eq 1 ]; then
+			if which -a "$apt_1"; then
+				echo " \n O Programa ${Red}$apt_1${reset} ja esta instalado "
+			else
+				echo "[++] Iniciando instalacao (${BGreen}$apt_1${reset}) \n"
+				echo "${BWhite}"
+				apt-get install $apt_1 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_1${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 2 ]; then	
+			if which -a "$apt_2"; then
+				echo "\n O Programa ${Red}$apt_2${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_2${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_2 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_2${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 3 ]; then	
+			if which -a "$apt_3"; then
+				echo "\n O Programa ${Red}$apt_3${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_3${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_3 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_3${reset}) instalado com sucesso"
+			fi ; enter;
+		fi;
+	}
+	until [ "$option" = "0" ]; do
+		banner
+		echo "${BBlue} You are in:${reset}${BGreen} System Monitor${reset}"
+		echo " ${BBlue}Select from the menu:${reset}"
+		echo "
+ 1) Conky - é um software monitor de sistema
+ 2) Indicator-SysMonitor
+ 3) Screenlet
+  
+ 0) return menu principal
+"
+		echo -n "${Purple}elais/SystemMonitor${reset}> "
+		read option
+		case $option in
+			0 ) clear ;; #Return
+        		1 ) aptGetInstallSystemMonitor ;;
+        		2 ) aptGetInstallSystemMonitor ;;
+        		3 ) aptGetInstallSystemMonitor ;;
+			* ) echo "[++] ${Red}Invalid Option${reset}" ; enter;;
+    		esac
+	done 
+}
+menuTextEditors(){ 
+	option=
+	local apt_1="bluefish"
+	local apt_2="cream"
+	local apt_3="jedit"
+	local apt_4="sublime"
+	aptGetInstallTextEditors() {
+		if [ "$option" -eq 1 ]; then
+			if which -a "$apt_1"; then
+				echo " \n O Programa ${Red}$apt_1${reset} ja esta instalado "
+			else
+				echo "[++] Iniciando instalacao (${BGreen}$apt_1${reset}) \n"
+				echo "${BWhite}"
+				apt-get install $apt_1 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_1${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 2 ]; then	
+			if which -a "$apt_2"; then
+				echo "\n O Programa ${Red}$apt_2${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_2${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_2 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_2${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 3 ]; then	
+			if which -a "$apt_3"; then
+				echo "\n O Programa ${Red}$apt_3${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_3${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_3 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_3${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 4 ]; then	
+			if which -a "$apt_6"; then
+				echo "\n O Programa ${Red}$apt_6${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_6${reset}) [++]\n"
+				echo "${BWhite}"
+				cd /tmp
+				wget https://download.sublimetext.com/sublime-text_build-3103_amd64.deb
+				echo "${reset}"
+				dpkg -i sublime-text_build-3103_amd64.deb
+				sleep 1
+				rm sublime-text_build-3103_amd64.deb
+				echo "[++] (${BGreen}$apt_6${reset}) instalado com sucesso"
+			fi ; enter;
+		fi;
+	}
+	until [ "$option" = "0" ]; do
+		banner
+		echo "${BBlue} You are in:${reset}${BGreen} Text Editors${reset}"
+		echo " ${BBlue}Select from the menu:${reset}"
+		echo "
+ 1) bluefish 
+ 2) cream 
+ 3) Jedit
+ 4) Sublime
+  
+ 0) return menu principal
+"
+		echo -n "${Purple}elais/TextEditors${reset}> "
+		read option
+		case $option in
+			0 ) clear ;; #Return
+        		1 ) aptGetInstallTextEditors ;;
+        		2 ) aptGetInstallTextEditors ;;
+        		3 ) aptGetInstallTextEditors ;;
+			4 ) aptGetInstallTextEditors ;;
+			5 ) aptGetInstallTextEditors ;;
+			6 ) aptGetInstallTextEditors ;;
+			* ) echo "[++] ${Red}Invalid Option${reset}" ; enter;;
+    		esac
+	done 
+}
+menuUtilities(){ 
+	option=
+	local apt_1="cmatrix"
+	local apt_2="FlashPlayer"
+	local apt_3="guake"
+	local apt_4="gufw"
+	local apt_5="mingw32"
+	dirr=$(find /usr/lib/mozilla/plugins -type d -name usr) ###########################
+	aptGetInstallUtilities() {
+		if [ "$option" -eq 1 ]; then
+			if which -a "$apt_1"; then
+				echo " \n O Programa ${Red}$apt_1${reset} ja esta instalado "
+			else
+				echo "[++] Iniciando instalacao (${BGreen}$apt_1${reset}) \n"
+				echo "${BWhite}"
+				apt-get install $apt_1 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_1${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 2 ]; then	
+			if [ -n "$dirr" ] ; then
+				echo "\n O Programa ${Red}$apt_2${reset} ja esta instalado "
+			else
+				echo "${BBlue} Acessando pasta${reset}"
+				sleep 3
+				cd /usr/lib/mozilla/plugins
+				echo "${BBlue} Inicinado Download${reset}"
+				sleep 3
+				echo "${BWhite}"
+				wget https://fpdownload.adobe.com/get/flashplayer/pdc/11.2.202.577/install_flash_player_11_linux.x86_64.tar.gz
+				echo "${reset}"
+				echo "${BBlue} Download finalizado${reset}"
+				sleep 2
+				echo "${BBlue} Descompactando arquivo${reset}"
+				sleep 3
+				tar -xf install_flash_player_11_linux.x86_64.tar.gz
+				echo "${BBlue} Removendo sobras${reset}"
+				sleep 3
+				rm install_flash_player_11_linux.x86_64.tar.gz
+				rm readme.txt
+				sleep 2
+				echo "${BGreen} Adobe flash player instalado com sucesso${reset}"
+			fi ; enter;
+		elif [ "$option" -eq 3 ]; then	
+			if which -a "$apt_3"; then
+				echo "\n O Programa ${Red}$apt_3${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_3${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_3 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_3${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 4 ]; then	
+			if which -a "$apt_4"; then
+				echo "\n O Programa ${Red}$apt_4${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_4${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_4 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_4${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 5 ]; then	
+			if which -a "i586-mingw32msvc-gcc"; then
+				echo "\n O Programa ${Red}$apt_5${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_5${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_5 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_5${reset}) instalado com sucesso"
+			fi ; enter;
+		fi;
+	}
+	until [ "$option" = "0" ]; do
+		banner
+		echo "${BBlue} You are in:${reset}${BGreen} Utilities${reset}"
+		echo " ${BBlue}Select from the menu:${reset}"
+		echo "
+ 1) Cmatrix - num sei oque é n, mas o pessoal usa, ai eu uso tmb
+ 2) Flash Player - é um reprodutor de multimédia e aplicações amplamente 
+ 3) Guake - é um terminal para Gnome no estilo suspenso, feito em Python
+ 4) Gufw - é uma interface gráfica para o UFW (Firewall Uncomplicated)
+ 5) Mingw32 - (Minimalist GNU for Windows) é uma versão portada para Microsoft Windows do conjunto de ferramentas GNU
+  
+ 0) return menu principal
+"
+		echo -n "${Purple}elais/Utilities${reset}> "
+		read option
+		case $option in
+			0 ) clear ;; #Return
+        		1 ) aptGetInstallUtilities ;;
+        		2 ) aptGetInstallUtilities ;;
+        		3 ) aptGetInstallUtilities ;;
+			4 ) aptGetInstallUtilities ;;
+			5 ) aptGetInstallUtilities ;;
+			* ) echo "[++] ${Red}Invalid Option${reset}" ; enter;;
+    		esac
+	done 
+}
+menuVirtualization(){ 
+	option=
+	local apt_1="VirtualBoxs"
+	local apt_2="VMWare"
+	aptGetInstallVirtualization() {
+		if [ "$option" -eq 1 ]; then
+			if which -a "$apt_1"; then
+				echo " \n O Programa ${Red}$apt_1${reset} ja esta instalado "
+			else
+				checkLinuxHeaders
+				echo "${Green}[++]${reset} Iniciando instalacao (${BGreen}$apt_20${reset})\n"
+				echo "${Green}[++]${reset} ${BBlue}Acessando pasta${reset}"
+				sleep 1
+				cd /tmp
+				echo "${Green}[++]${reset} ${BYellow}Iniciando Download${reset}"
+				sleep 1
+				echo "${BWhite}"
+				wget http://download.virtualbox.org/virtualbox/5.0.16/VirtualBox-5.0.16-105871-Linux_amd64.run
+				echo "${reset}"
+				echo "${Green}[++]${reset} ${BBlue}Download finalizado${reset}"
+				sleep 1
+				echo "Aplicando permicoes chmod"
+				sleep 1
+				chmod +x VirtualBox-5.0.16-105871-Linux_amd64.run
+				echo "${Green}[++]${reset} ${BYellow}Instalando $apt_20${reset}"
+				sleep 1
+				echo "${BWhite}"
+				./VirtualBox-5.0.16-105871-Linux_amd64.run
+				echo "${reset}"
+				echo "${Green}[++]${reset} ${BBlue}Removendo sobras${reset}"
+				sleep 1
+				rm VirtualBox-5.0.16-105871-Linux_amd64.run
+				sleep 1
+				echo "${Green}[++]${reset} ${BGreen}$apt_20 instalado com sucesso${reset}"	
+			fi ; enter;
+		elif [ "$option" -eq 2 ]; then	
+			if which -a "$apt_2"; then
+				echo "\n O Programa ${Red}$apt_2${reset} ja esta instalado "
+			else
+				checkLinuxHeaders
+				echo "${Green}[++]${reset} Iniciando instalacao (${BGreen}$apt_20${reset})\n"
+				echo "${Green}[++]${reset} ${BBlue}Acessando pasta${reset}"
+				sleep 1
+				cd /tmp
+				echo "${Green}[++]${reset} ${BYellow}Iniciando Download${reset}"
+				sleep 1
+				echo "${BWhite}"
+				wget https://download3.vmware.com/software/wkst/file/VMware-Workstation-Full-11.1.3-3206955.x86_64.bundle
+				echo "${reset}"
+				echo "${Green}[++]${reset} ${BBlue}Download finalizado${reset}"
+				sleep 1
+				echo "Aplicando permicoes chmod"
+				sleep 1
+				chmod +x VMware-Workstation-Full-11.1.3-3206955.x86_64.bundle
+				echo "${Green}[++]${reset} ${BYellow}Instalando $apt_20${reset}"
+				sleep 1
+				echo "${BWhite}"
+				./VMware-Workstation-Full-11.1.3-3206955.x86_64.bundle
+				echo "${reset}"
+				echo "${Green}[++]${reset} ${BBlue}Removendo sobras${reset}"
+				sleep 1
+				rm VMware-Workstation-Full-11.1.3-3206955.x86_64.bundle
+				sleep 1
+				echo "${Green}[++]${reset} ${BGreen}$apt_20 instalado com sucesso${reset}"	
+			fi ; enter;
+		fi;
+	}
+	until [ "$option" = "0" ]; do
+		banner
+		echo "${BBlue} You are in:${reset}${BGreen} Virtualization${reset}"
+		echo " ${BBlue}Select from the menu:${reset}"
+		echo "
+ 1) Parallels
+ 2) QEMU
+ 3) VirtualBox
+ 4) VMWare
+  
+ 0) return menu principal
+"
+		echo -n "${Purple}elais/Virtualization${reset}> "
+		read option
+		case $option in
+			0 ) clear ;; #Return
+        		1 ) aptGetInstallVirtualization ;;
+        		2 ) aptGetInstallVirtualization ;;
+        		3 ) aptGetInstallVirtualization ;;
+			4 ) aptGetInstallVirtualization ;;
+			*) echo "[++] ${Red}Invalid Option${reset}" ; enter;;
+    		esac
+	done 
+}
+menuWebBrowsers(){ 
+	option=
+	local apt_1="Chrome"
+	local apt_2="Chromium"
+	local apt_3="Dillo"
+	local apt_4="Firefox"
+	local apt_5="Firefox Develop"
+	local apt_6="Iceweasel"
+	local apt_7="Konqueror "
+	local apt_8="Links"
+	local apt_9="Liri Browser"
+	local apt_10="Lynx"
+	local apt_11="Maxthon"
+	local apt_12="Midori"
+	local apt_13="Opera"
+	local apt_14="Pale Moon"
+	local apt_15="QupZilla"
+	local apt_16="TOR"
+	local apt_17="Vivaldi "
+	local apt_18="W3M"
+	aptGetInstallWebBrowsers() {
+		if [ "$option" -eq 1 ]; then
+			if which -a "$apt_1"; then
+				echo " \n O Programa ${Red}$apt_1${reset} ja esta instalado "
+			else
+				echo "[++] Iniciando instalacao (${BGreen}$apt_1${reset}) \n"
+				echo "${BWhite}"
+				apt-get install $apt_1 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_1${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 2 ]; then	
+			if which -a "$apt_2"; then
+				echo "\n O Programa ${Red}$apt_2${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_2${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_2 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_2${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 3 ]; then	
+			if which -a "$apt_3"; then
+				echo "\n O Programa ${Red}$apt_3${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_3${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_3 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_3${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 4 ]; then	
+			if which -a "$apt_4"; then
+				echo "\n O Programa ${Red}$apt_4${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_4${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_4 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_4${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 5 ]; then	
+			if which -a "$apt_5"; then
+				echo "\n O Programa ${Red}$apt_5${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_5${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_5 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_5${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 6 ]; then	
+			if which -a "$apt_6"; then
+				echo "\n O Programa ${Red}$apt_6${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_6${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_6 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_6${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 7 ]; then	
+			if which -a "$apt_7"; then
+				echo "\n O Programa ${Red}$apt_7${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_7${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_7 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_7${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 8 ]; then	
+			if which -a "$apt_8"; then
+				echo "\n O Programa ${Red}$apt_8${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_8${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_8 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_8${reset}) instalado com sucesso"
+			fi ; enter;
+		elif [ "$option" -eq 9 ]; then	
+			if which -a "$apt_8"; then
+				echo "\n O Programa ${Red}$apt_8${reset} ja esta instalado "
+			else
+				echo "[++} Iniciando instalacao (${BGreen}$apt_8${reset}) [++]\n"
+				echo "${BWhite}"
+				apt-get install $apt_8 -y
+				echo "${reset}"
+				echo "[++] (${BGreen}$apt_9${reset}) instalado com sucesso"
+			fi ; enter;
+		fi;
+	}
+	until [ "$option" = "0" ]; do
+		banner
+		echo "${BBlue} You are in:${reset}${BGreen} Web Browsers${reset}"
+		echo " ${BBlue}Select from the menu:${reset}"
+		echo "
+  1) Chrome - é um navegador desenvolvido pelo Google
+  2) Chromium
+  3) Dillo
+  4) Firefox
+  5) Firefox Develop
+  6) Iceweasel
+  7) Konqueror
+  8) Links
+  9) Liri Browser
+ 10) Lynx
+ 11) Maxthon
+ 12) Midori
+ 13) Opera
+ 14) Pale Moon
+ 15) QupZilla
+ 16) TOR
+ 17) Vivaldi
+ 18) W3M
+  
+  0) return menu principal
+"
+		echo -n "${Purple}elais/WebBrowsers${reset}> "
+		read option
+		case $option in
+			0 ) clear ;; #Return
+        		1 ) ptGetInstallWebBrowsers ;;
+        		2 ) ptGetInstallWebBrowsers ;;
+        		3 ) ptGetInstallWebBrowsers ;;
+			4 ) ptGetInstallWebBrowsers ;;
+			5 ) ptGetInstallWebBrowsers ;;
+			6 ) ptGetInstallWebBrowsers ;;
+			7 ) ptGetInstallWebBrowsers ;;
+			8 ) ptGetInstallWebBrowsers ;;
+			9 ) ptGetInstallWebBrowsers ;;
+        		10 ) ptGetInstallWebBrowsers ;;
+        		11 ) ptGetInstallWebBrowsers ;;
+        		12 ) ptGetInstallWebBrowsers ;;
+        		13 ) ptGetInstallWebBrowsers ;;
+			14 ) ptGetInstallWebBrowsers ;;
+			15 ) ptGetInstallWebBrowsers ;;
+			16 ) ptGetInstallWebBrowsers ;;
+			17 ) ptGetInstallWebBrowsers ;;
+			18 ) ptGetInstallWebBrowsers ;;
+			*) echo "[++] ${Red}Invalid Option${reset}" ; enter;;
+    		esac
+	done 
 }
 
-until [ "$item" = "0" ]; do
-	banner
-	sleep 3 ;
-	menu
-	echo -n "${Purple}elais${reset}> "
-	read item
-	echo ""
-	case $item in
-        1 ) aptGet ;;
-	2 ) aptGet ;;
-	3 ) aptGet ;;
-	4 ) aptGet ;;
-	5 ) aptGet ;;
-	6 ) aptGet ;;
-	7 ) aptGet ;;
-	8 ) aptGet ;;
-	9 ) aptGet ;;
-	10 ) aptGet ;;
-	11 ) aptGet ;;
-	12 ) aptGet ;;
-	13 ) aptGet ;;
-	14 ) aptGet ;;
-	15 ) aptGet ;;
-	16 ) aptGet ;;
-	17 ) aptGet ;;
-	18 ) aptGet ;;
-	19 ) aptGet ;;
-	20 ) aptGet ;;
-	21 ) aptGet ;;
-	99 ) apt-get install $all;;
-        0 ) echo "[--] ${Red}Turning $script${reset}" ; sleep 2 ; clear ; exit ;;
-	*) echo "[++] ${Red}Invalid Option${reset}" ; enter;;
-    esac
-done
+mainMenu(){
+	itemMainMenu=
+	until [ "$itemMainMenu" = "0" ]; do
+		banner
+		echo " ${BBlue}Select from the menu:${reset}"
+		echo "
+  Main Menus Options
+  1) Editors Music & Video
+  2) Image Editors
+  3) Multimidia
+  4) Network Mappings
+  5) Office
+  6) Package Manager
+  7) Servers
+  8) System Monitor
+  9) TextEditors
+ 10) Utilities
+ 11) Virtualization
+ 12) WebBrowsers
+" 		#menu
+		echo -n "${Purple}elais${reset}> "
+		read itemMainMenu
+		echo ""
+		case $itemMainMenu in
+		 0 ) echo "[--] ${Red}Turning $script${reset}" ; sleep 1; clear ; exit ;;
+		 1 ) clear ; menuEditorsMusicVideo ;;
+		 2 ) clear ; menuImageEditors ;;
+		 3 ) clear ; menuMultimidia ;;
+		 4 ) clear ; menuNetworkMappings ;;
+		 5 ) clear ; menuOffice ;;
+		 6 ) clear ; menuPackageManager ;;
+		 7 ) clear ; menuServers ;;
+		 8 ) clear ; menuSystemMonitor ;;
+		 9 ) clear ; menuTextEditors ;;
+		10 ) clear ; menuUtilities ;;
+		11 ) clear ; menuVirtualization ;;
+		12 ) clear ; menuWebBrowsers ;;
+		*) echo "[++] ${Red}Invalid Option${reset}" ; enter;;
+	    esac
+	done
+}
+mainMenu
