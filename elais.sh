@@ -1056,8 +1056,6 @@ menuVirtualization(){
 			0 ) clear ;; #Return
         		1 ) aptGetInstallVirtualization ;;
         		2 ) aptGetInstallVirtualization ;;
-        		3 ) aptGetInstallVirtualization ;;
-			4 ) aptGetInstallVirtualization ;;
 			*) echo "[++] ${Red}Invalid Option${reset}" ; enter;;
     		esac
 	done 
@@ -1247,6 +1245,8 @@ mainMenu(){
  10) Utilities
  11) Virtualization
  12) WebBrowsers
+
+ 00) Quit
 " 		#menu
 		echo -n "${Purple}elais${reset}> "
 		read itemMainMenu
