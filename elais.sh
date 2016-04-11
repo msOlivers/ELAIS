@@ -3,6 +3,12 @@
 # Colaborador: ishock
 # Colaborador: RobsonMr
 
+# file /bin/bash | cut -d' ' -f3 return architecture
+# uname -a | cut -d ' ' -f6 return 
+#OS=$(lsb_release -si)
+#ARCH=$(uname -m | sed 's/x86_//;s/i[3-6]86/32/')
+#VER=$(lsb_release -sr)
+
 script="ELAIS"
 # Colors
 # Reset
@@ -148,10 +154,10 @@ menuEditorsMusicVideo(){
 }
 menuImageEditors(){ 
 	option=
-	local apt_1="darktable" 
-	local apt_2="digikam"
+	local apt_1="darktable" # http://www.darktable.org/install/#ubuntu # http://www.darktable.org/install/#debian
+	local apt_2="digikam" # https://www.digikam.org/download/binary
 	local apt_3="f-spot"
-	local apt_4="fotoxx"
+	local apt_4="fotoxx" # https://www.edivaldobrito.com.br/instale-o-editor-de-imagens-fotoxx-ubuntu-14-04/
 	local apt_5="gimp"
 	local apt_6="gpaint"
 	#local apt_7="photivo"
@@ -977,7 +983,7 @@ menuVirtualization(){
 				echo " \n O Programa ${Red}$apt_1${reset} ja esta instalado "
 			else
 				checkLinuxHeaders
-				echo "${Green}[++]${reset} Iniciando instalacao (${BGreen}$apt_20${reset})\n"
+				echo "${Green}[++]${reset} Iniciando instalacao (${BGreen}$apt_1${reset})\n"
 				echo "${Green}[++]${reset} ${BBlue}Acessando pasta${reset}"
 				sleep 1
 				cd /tmp
@@ -1000,14 +1006,14 @@ menuVirtualization(){
 				sleep 1
 				rm VirtualBox-5.0.16-105871-Linux_amd64.run
 				sleep 1
-				echo "${Green}[++]${reset} ${BGreen}$apt_20 instalado com sucesso${reset}"	
+				echo "${Green}[++]${reset} ${BGreen}$apt_1 instalado com sucesso${reset}"	
 			fi ; enter;
 		elif [ "$option" -eq 2 ]; then	
 			if which -a "$apt_2"; then
 				echo "\n O Programa ${Red}$apt_2${reset} ja esta instalado "
 			else
 				checkLinuxHeaders
-				echo "${Green}[++]${reset} Iniciando instalacao (${BGreen}$apt_20${reset})\n"
+				echo "${Green}[++]${reset} Iniciando instalacao (${BGreen}$apt_2${reset})\n"
 				echo "${Green}[++]${reset} ${BBlue}Acessando pasta${reset}"
 				sleep 1
 				cd /tmp
@@ -1030,7 +1036,7 @@ menuVirtualization(){
 				sleep 1
 				rm VMware-Workstation-Full-11.1.3-3206955.x86_64.bundle
 				sleep 1
-				echo "${Green}[++]${reset} ${BGreen}$apt_20 instalado com sucesso${reset}"	
+				echo "${Green}[++]${reset} ${BGreen}$apt_2 instalado com sucesso${reset}"	
 			fi ; enter;
 		fi;
 	}
@@ -1039,10 +1045,8 @@ menuVirtualization(){
 		echo "${BBlue} You are in:${reset}${BGreen} Virtualization${reset}"
 		echo " ${BBlue}Select from the menu:${reset}"
 		echo "
- 1) Parallels
- 2) QEMU
- 3) VirtualBox
- 4) VMWare
+ 1) VirtualBox
+ 2) VMWare
   
  0) return menu principal
 "
