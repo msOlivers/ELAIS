@@ -3,12 +3,6 @@
 # Colaborador: ishock
 # Colaborador: RobsonMr
 
-# file /bin/bash | cut -d' ' -f3 return architecture
-# uname -a | cut -d ' ' -f6 return 
-#OS=$(lsb_release -si)
-#ARCH=$(uname -m | sed 's/x86_//;s/i[3-6]86/32/')
-#VER=$(lsb_release -sr)
-
 script="ELAIS"
 # Colors
 # Reset
@@ -154,10 +148,10 @@ menuEditorsMusicVideo(){
 }
 menuImageEditors(){ 
 	option=
-	local apt_1="darktable" # http://www.darktable.org/install/#ubuntu # http://www.darktable.org/install/#debian
-	local apt_2="digikam" # https://www.digikam.org/download/binary
+	local apt_1="darktable"
+	local apt_2="digikam" 
 	local apt_3="f-spot"
-	local apt_4="fotoxx" # https://www.edivaldobrito.com.br/instale-o-editor-de-imagens-fotoxx-ubuntu-14-04/
+	local apt_4="fotoxx" 
 	local apt_5="gimp"
 	local apt_6="gpaint"
 	#local apt_7="photivo"
