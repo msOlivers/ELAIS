@@ -159,46 +159,35 @@ menuImageEditors(){
 	#local apt_8="rstudio"
 	#local apt_9="rawtherapee"
 	local OS=$(lsb_release -si)
-	OSS="Ubuntu"
+	local _OS="Ubuntu"
 	aptGetInstallImageEditors() {
 		if [ "$option" -eq 1 ]; then
 			if which -a "$apt_1" $null; then
 				echo " \n O Programa ${Red}$apt_1${reset} ja esta instalado "
 			else
-				if [ "$OS" != "$OSS" ]; then
-					echo "Nao pode roda no $OS"
+				if [ "$OS" != "$_OS" ]; then
+					echo "\n ${Red}Nao pode roda no${reset} ${Blue}$OS${reset}"
 				else
-					echo "$ OS $OS é igual $ X $X"
-	
-				#fi;
-				#if [ -n "$OS" ]; then
-				#	echo "[++] Iniciando instalacao (${BGreen}$apt_1${reset}) \n"
-				#	echo "${BWhite}"
-				#	apt-get install -y $apt_1 #
-				#	echo "${reset}"
-				#	echo "[++] (${BGreen}$apt_1${reset}) instalado com sucesso"
-				#else
-				#	echo "[++] Iniciando instalacao (${BGreen}$apt_1${reset}) \n"
-				#	sleep 1
-					
-				#	if which -a "git"; then
-				#		return 0
-				#	else
-				#		echo "Instalando git"
-				#		apt-get install -y git
-				#	fi;
-				#	echo "Instalando dependencias\n"
-				#	echo "${BWhite}"
-				#	apt-get install -y debhelper dpkg-dev fakeroot
-				#	apt-get build-dep darktable
-				#	apt-get install -y gtk+-3.0
-				#	echo "${reset}"					
-				#	sleep 1
-				#	cd /tmp
-				#	git clone https://github.com/darktable-org/darktable.git
-				#	cd darktable
-				#	./build.sh --prefix /opt/darktable --build-type Release
-				#	echo "[++] (${BGreen}$apt_1${reset}) instalado com sucesso"
+					echo "[++] Iniciando instalacao (${BGreen}$apt_1${reset}) \n"
+					sleep 1	
+					if which -a "git" $null; then
+						return 0
+					else
+						echo "Instalando git"
+						apt-get install -y git
+					fi;
+					echo "Instalando dependencias\n"
+					echo "${BWhite}"
+					apt-get install -y debhelper dpkg-dev fakeroot
+					apt-get build-dep darktable
+					apt-get install -y gtk+-3.0
+					echo "${reset}"					
+					sleep 1
+					cd /tmp
+					git clone https://github.com/darktable-org/darktable.git
+					cd darktable
+					./build.sh --prefix /opt/darktable --build-type Release
+					echo "[++] (${BGreen}$apt_1${reset}) instalado com sucesso"
 				fi;
 			fi ; enter;
 		elif [ "$option" -eq 2 ]; then
@@ -1255,7 +1244,7 @@ mainMenu(){
  10) Utilities
  11) Virtualization
  12) WebBrowsers
- 00) Quit
+  0) Quit
 " 		#menu
 		echo -n "${Purple}elais${reset}> "
 		read itemMainMenu
@@ -1285,12 +1274,3 @@ if [ $ARCH != $arc  ] ; then
 else
 	mainMenu
 fi;
-
-
-
-
-
-
-
-
-
