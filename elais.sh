@@ -73,26 +73,26 @@ menuPrincipal(){
 	echo " ${BBlue}Select from the menu:${reset}"
 	echo ""
 }
-null="1>/dev/null 2>/dev/null"
+
 menuEditorsMusicVideo(){ 
 	option=
-	local apt_1="audacityc"
+	local apt_1="audacity"
 	local apt_2="kazam"
 	local apt_3="kdenlive"
 	local apt_4="openshot"
 	aptGetInstallEditorsMusicVideo() {
 		if [ "$option" -eq 1 ]; then
-			if which -a "$apt_1" $null ; then
+			if which -a "$apt_1" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_1${reset} ja esta instalado "
 			else
 				echo "[++] Iniciando instalacao (${BGreen}$apt_1${reset}) \n"
 				echo "${BWhite}"
-				apt-get install -y $apt_1 $null 
+				apt-get install -y $apt_1 
 				echo "${reset}"
 				echo "[++] (${BGreen}$apt_1${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 2 ]; then
-			if which -a "$apt_2" $null; then
+			if which -a "$apt_2" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_2${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_2${reset}) [++]\n"
@@ -102,7 +102,7 @@ menuEditorsMusicVideo(){
 				echo "[++] (${BGreen}$apt_2${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 3 ]; then
-			if which -a "$apt_3" $null; then
+			if which -a "$apt_3" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_3${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_3${reset}) [++]\n"
@@ -112,7 +112,7 @@ menuEditorsMusicVideo(){
 				echo "[++] (${BGreen}$apt_3${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 4 ]; then
-			if which -a "$apt_4" $null; then
+			if which -a "$apt_4" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_4${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_4${reset}) [++]\n"
@@ -162,7 +162,7 @@ menuImageEditors(){
 	local _OS="Ubuntu"
 	aptGetInstallImageEditors() {
 		if [ "$option" -eq 1 ]; then
-			if which -a "$apt_1" $null; then
+			if which -a "$apt_1" 1>/dev/null 2>/dev/null; then
 				echo " \n O Programa ${Red}$apt_1${reset} ja esta instalado "
 			else
 				if [ "$OS" != "$_OS" ]; then
@@ -170,7 +170,7 @@ menuImageEditors(){
 				else
 					echo "[++] Iniciando instalacao (${BGreen}$apt_1${reset}) \n"
 					sleep 1	
-					if which -a "git" $null; then
+					if which -a "git" 1>/dev/null 2>/dev/null; then
 						return 0
 					else
 						echo "Instalando git"
@@ -191,7 +191,7 @@ menuImageEditors(){
 				fi;
 			fi ; enter;
 		elif [ "$option" -eq 2 ]; then
-			if which -a "$apt_2" $null; then
+			if which -a "$apt_2" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_2${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_2${reset}) [++]\n"
@@ -201,14 +201,15 @@ menuImageEditors(){
 				echo "[++] (${BGreen}$apt_2${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 3 ]; then
-			if which -a "$apt_3" $null; then
+			if which -a "$apt_3" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_3${reset} ja esta instalado "
 			else	
-				if [ -n "$OS" ]; then
-					echo "${Red} $apt_3${reset} Nao esta disponivel para o seu sistema $OS"
+				if [ "$OS" != "$_OS" ]; then
+					echo "\n ${Red}Nao pode roda no${reset} ${Blue}$OS${reset}"
 				else
 					echo "[++} Iniciando instalacao (${BGreen}$apt_3${reset}) [++]\n"
 					echo "${BWhite}"
+					sudo add-apt-repository ppa:f-spot/f-spot-ppa && sudo apt-get update
 					apt-get install -y $apt_3
 					echo "${reset}"
 					echo "[++] (${BGreen}$apt_3${reset}) instalado com sucesso"
@@ -216,17 +217,17 @@ menuImageEditors(){
 				fi;
 			fi ; enter;
 		elif [ "$option" -eq 4 ]; then
-			if which -a "$apt_4" $null; then
+			if which -a "$apt_4" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_4${reset} ja esta instalado "
 			else
-				if [ -n "$OS" ]; then
+				if [ "$OS" != "$_OS" ]; then
 					echo "[++} Iniciando instalacao (${BGreen}$apt_4${reset}) [++]\n"
 					cd /tmp
 					echo "${BWhite}"
 					wget http://kornelix.net/downloads/packages/fotoxx-16.02.1-x86_64.deb -O fotoxx.deb
 					echo "${reset}"
 					dpkg -i fotoxx.deb
-					apt-get install -y -f
+					apt-get install -f
 					rm fotoxx.deb
 					echo "[++] (${BGreen}$apt_4${reset}) instalado com sucesso"
 				else
@@ -234,31 +235,31 @@ menuImageEditors(){
 					add-apt-repository ppa:dhor/myway
 					echo "${BWhite}"
 					apt-get update
-					apt-get install -y fotoxx
+					apt-get install -y ${apt_4}
 					echo "${reset}"
 					echo "[++] (${BGreen}$apt_4${reset}) instalado com sucesso"
 				fi;			
 			fi ; enter;
 		elif [ "$option" -eq 5 ]; then
-			if which -a "$apt_5" $null; then
+			if which -a "$apt_5" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_5${reset} ja esta instalado "
 			else
-				if [ -n "$OS" ]; then
+				if [ "$OS" != "$_OS" ]; then
 					echo "[++} Iniciando instalacao (${BGreen}$apt_5${reset}) [++]\n"
-					apt-get install -y $apt_5
+					sudo add-apt-repository ppa:otto-kesselgulasch/gimp
+					echo "${BWhite}"
+					sudo apt-get update && apt-get install -y $apt_5
+					echo "${reset}"
 					echo "[++] (${BGreen}$apt_5${reset}) instalado com sucesso"
 				else
 					echo "[++} Iniciando instalacao (${BGreen}$apt_5${reset}) [++]\n"
-					add-apt-repository ppa:otto-kesselgulasch/gimp
-					echo "${BWhite}"
-					apt-get update && apt-get install -y $apt_5
-					echo "${reset}"
+					apt-get install -y $apt_5
 					echo "[++] (${BGreen}$apt_5${reset}) instalado com sucesso"
 				fi;
 
 			fi ; enter;
 		elif [ "$option" -eq 6 ]; then
-			if which -a "$apt_6" $null; then
+			if which -a "$apt_6" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_6${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_6${reset}) [++]\n"
@@ -303,7 +304,7 @@ menuMultimidia(){
 	local apt_2="k3b"
 	aptGetInstallMultimidia() {
 		if [ "$option" -eq 1 ]; then
-			if which -a "$apt_1" $null; then
+			if which -a "$apt_1" 1>/dev/null 2>/dev/null; then
 				echo " \n O Programa ${Red}$apt_1${reset} ja esta instalado "
 			else
 				echo "[++] Iniciando instalacao (${BGreen}$apt_1${reset}) \n"
@@ -313,7 +314,7 @@ menuMultimidia(){
 				echo "[++] (${BGreen}$apt_1${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 2 ]; then	
-			if which -a "$apt_2" $null; then
+			if which -a "$apt_2" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_2${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_2${reset}) [++]\n"
@@ -358,7 +359,7 @@ menuNetworkMappings(){
 	local apt_10="wireshark"
 	aptGetInstallNetworkMappings() {
 		if [ "$option" -eq 1 ]; then
-			if which -a "$apt_1" $null; then
+			if which -a "$apt_1" 1>/dev/null 2>/dev/null; then
 				echo " \n O Programa ${Red}$apt_1${reset} ja esta instalado "
 			else
 				echo "[++] Iniciando instalacao (${BGreen}$apt_1${reset}) \n"
@@ -368,7 +369,7 @@ menuNetworkMappings(){
 				echo "[++] (${BGreen}$apt_1${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 2 ]; then	
-			if which -a "$apt_2" $null; then
+			if which -a "$apt_2" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_2${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_2${reset}) [++]\n"
@@ -378,7 +379,7 @@ menuNetworkMappings(){
 				echo "[++] (${BGreen}$apt_2${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 3 ]; then	
-			if which -a "$apt_3" $null; then
+			if which -a "$apt_3" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_3${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_3${reset}) [++]\n"
@@ -388,7 +389,7 @@ menuNetworkMappings(){
 				echo "[++] (${BGreen}$apt_3${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 4 ]; then	
-			if which -a "$apt_4" $null; then
+			if which -a "$apt_4" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_4${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_4${reset}) [++]\n"
@@ -398,7 +399,7 @@ menuNetworkMappings(){
 				echo "[++] (${BGreen}$apt_4${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 5 ]; then	
-			if which -a "$apt_5" $null; then
+			if which -a "$apt_5" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_5${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_5${reset}) [++]\n"
@@ -408,7 +409,7 @@ menuNetworkMappings(){
 				echo "[++] (${BGreen}$apt_5${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 6 ]; then	
-			if which -a "$apt_6" $null; then
+			if which -a "$apt_6" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_6${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_6${reset}) [++]\n"
@@ -418,7 +419,7 @@ menuNetworkMappings(){
 				echo "[++] (${BGreen}$apt_6${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 7 ]; then	
-			if which -a "$apt_7" $null; then
+			if which -a "$apt_7" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_7${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_7${reset}) [++]\n"
@@ -428,7 +429,7 @@ menuNetworkMappings(){
 				echo "[++] (${BGreen}$apt_7${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 8 ]; then	
-			if which -a "$apt_8" $null; then
+			if which -a "$apt_8" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_8${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_8${reset}) [++]\n"
@@ -438,7 +439,7 @@ menuNetworkMappings(){
 				echo "[++] (${BGreen}$apt_8${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 9 ]; then	
-			if which -a "$apt_9" $null; then
+			if which -a "$apt_9" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_9${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_9${reset}) [++]\n"
@@ -448,7 +449,7 @@ menuNetworkMappings(){
 				echo "[++] (${BGreen}$apt_9${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 10 ]; then	
-			if which -a "$apt_10" $null; then
+			if which -a "$apt_10" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_10${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_10${reset}) [++]\n"
@@ -490,6 +491,7 @@ menuNetworkMappings(){
 			7 ) aptGetInstallNetworkMappings ;;
 			8 ) aptGetInstallNetworkMappings ;;
 			9 ) aptGetInstallNetworkMappings ;;
+			10 ) aptGetInstallNetworkMappings ;;
 			*) echo "[++] ${Red}Invalid Option${reset}" ; enter;;
     		esac
 	done  
@@ -499,7 +501,7 @@ menuOffice(){
 	local apt_1="libreoffice"
 	aptGetInstallOffice() {
 		if [ "$option" -eq 1 ]; then
-			if which -a "$apt_1" $null; then
+			if which -a "$apt_1" 1>/dev/null 2>/dev/null; then
 				echo " \n O Programa ${Red}$apt_1${reset} ja esta instalado "
 			else
 				echo "[++] Iniciando instalacao (${BGreen}$apt_1${reset}) \n"
@@ -509,7 +511,7 @@ menuOffice(){
 				echo "[++] (${BGreen}$apt_1${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 2 ]; then	
-			if which -a "$apt_2" $null; then
+			if which -a "$apt_2" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_2${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_2${reset}) [++]\n"
@@ -545,19 +547,31 @@ menuPackageManager(){
 	local apt_2="gdebi"
 	local apt_3="synaptic"
 	local apt_4="transmission"
+	local OS=$(lsb_release -si)
+	local _OS="Ubuntu"
 	aptGetInstallPackageManager() {
 		if [ "$option" -eq 1 ]; then
-			if which -a "$apt_1" $null; then
+			if which -a "$apt_1" 1>/dev/null 2>/dev/null; then
 				echo " \n O Programa ${Red}$apt_1${reset} ja esta instalado "
 			else
-				echo "[++] Iniciando instalacao (${BGreen}$apt_1${reset}) \n"
-				echo "${BWhite}"
-				apt-get install -y $apt_1
-				echo "${reset}"
-				echo "[++] (${BGreen}$apt_1${reset}) instalado com sucesso"
+				if [ "$OS" != "$_OS" ]; then	
+					echo "[++] Iniciando instalacao (${BGreen}$apt_1${reset}) \n"
+					sudo echo "deb http://us.archive.ubuntu.com/ubuntu precise main universe" >> /etc/apt/sources.list
+					echo "${BWhite}"
+					sudo apt-get update
+					apt-get install -y $apt_1
+					echo "${reset}"
+					echo "[++] (${BGreen}$apt_1${reset}) instalado com sucesso"
+				else
+					echo "[++] Iniciando instalacao (${BGreen}$apt_1${reset}) \n"
+					echo "${BWhite}"
+					apt-get install -y $apt_1
+					echo "${reset}"
+					echo "[++] (${BGreen}$apt_1${reset}) instalado com sucesso"
+				fi
 			fi ; enter;
 		elif [ "$option" -eq 2 ]; then	
-			if which -a "$apt_2" $null; then
+			if which -a "$apt_2" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_2${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_2${reset}) [++]\n"
@@ -567,7 +581,7 @@ menuPackageManager(){
 				echo "[++] (${BGreen}$apt_2${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 3 ]; then	
-			if which -a "$apt_3" $null; then
+			if which -a "$apt_3" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_3${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_3${reset}) [++]\n"
@@ -577,7 +591,7 @@ menuPackageManager(){
 				echo "[++] (${BGreen}$apt_3${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 4 ]; then	
-			if which -a "$apt_4" $null; then
+			if which -a "$apt_4" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_4${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_4${reset}) [++]\n"
@@ -623,7 +637,7 @@ menuServers(){
 	local apt_7="phpmyadmin "
 	aptGetInstallServers() {
 		if [ "$option" -eq 1 ]; then
-			if which -a "$apt_1" $null; then
+			if which -a "$apt_1" 1>/dev/null 2>/dev/null; then
 				echo " \n O Programa ${Red}$apt_1${reset} ja esta instalado "
 			else
 				echo "[++] Iniciando instalacao (${BGreen}$apt_1${reset}) \n"
@@ -633,7 +647,7 @@ menuServers(){
 				echo "[++] (${BGreen}$apt_1${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 2 ]; then	
-			if which -a "$apt_2" $null; then
+			if which -a "$apt_2" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_2${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_2${reset}) [++]\n"
@@ -643,7 +657,7 @@ menuServers(){
 				echo "[++] (${BGreen}$apt_2${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 3 ]; then	
-			if which -a "$apt_3" $null; then
+			if which -a "$apt_3" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_3${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_3${reset}) [++]\n"
@@ -653,7 +667,7 @@ menuServers(){
 				echo "[++] (${BGreen}$apt_3${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 4 ]; then	
-			if which -a "$apt_4" $null; then
+			if which -a "$apt_4" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_4${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_4${reset}) [++]\n"
@@ -663,7 +677,7 @@ menuServers(){
 				echo "[++] (${BGreen}$apt_4${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 5 ]; then	
-			if which -a "$apt_5" $null; then
+			if which -a "$apt_5" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_5${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_5${reset}) [++]\n"
@@ -673,7 +687,7 @@ menuServers(){
 				echo "[++] (${BGreen}$apt_5${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 6 ]; then	
-			if which -a "$apt_6" $null; then
+			if which -a "$apt_6" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_6${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_6${reset}) [++]\n"
@@ -683,7 +697,7 @@ menuServers(){
 				echo "[++] (${BGreen}$apt_6${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 7 ]; then	
-			if which -a "$apt_7" $null; then
+			if which -a "$apt_7" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_7${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_7${reset}) [++]\n"
@@ -731,7 +745,7 @@ menuSystemMonitor(){
 	local apt_3="screenlet"
 	aptGetInstallSystemMonitor() {
 		if [ "$option" -eq 1 ]; then
-			if which -a "$apt_1" $null; then
+			if which -a "$apt_1" 1>/dev/null 2>/dev/null; then
 				echo " \n O Programa ${Red}$apt_1${reset} ja esta instalado "
 			else
 				echo "[++] Iniciando instalacao (${BGreen}$apt_1${reset}) \n"
@@ -741,7 +755,7 @@ menuSystemMonitor(){
 				echo "[++] (${BGreen}$apt_1${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 2 ]; then	
-			if which -a "$apt_2" $null; then
+			if which -a "$apt_2" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_2${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_2${reset}) [++]\n"
@@ -751,7 +765,7 @@ menuSystemMonitor(){
 				echo "[++] (${BGreen}$apt_2${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 3 ]; then	
-			if which -a "$apt_3" $null; then
+			if which -a "$apt_3" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_3${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_3${reset}) [++]\n"
@@ -792,7 +806,7 @@ menuTextEditors(){
 	local apt_4="sublime"
 	aptGetInstallTextEditors() {
 		if [ "$option" -eq 1 ]; then
-			if which -a "$apt_1" $null; then
+			if which -a "$apt_1" 1>/dev/null 2>/dev/null; then
 				echo " \n O Programa ${Red}$apt_1${reset} ja esta instalado "
 			else
 				echo "[++] Iniciando instalacao (${BGreen}$apt_1${reset}) \n"
@@ -802,7 +816,7 @@ menuTextEditors(){
 				echo "[++] (${BGreen}$apt_1${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 2 ]; then	
-			if which -a "$apt_2" $null; then
+			if which -a "$apt_2" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_2${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_2${reset}) [++]\n"
@@ -812,7 +826,7 @@ menuTextEditors(){
 				echo "[++] (${BGreen}$apt_2${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 3 ]; then	
-			if which -a "$apt_3" $null; then
+			if which -a "$apt_3" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_3${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_3${reset}) [++]\n"
@@ -822,7 +836,7 @@ menuTextEditors(){
 				echo "[++] (${BGreen}$apt_3${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 4 ]; then	
-			if which -a "$apt_6" $null; then
+			if which -a "$apt_6" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_6${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_6${reset}) [++]\n"
@@ -873,7 +887,7 @@ menuUtilities(){
 	dirr=$(find /usr/lib/mozilla/plugins -type d -name usr) ###########################
 	aptGetInstallUtilities() {
 		if [ "$option" -eq 1 ]; then
-			if which -a "$apt_1" $null; then
+			if which -a "$apt_1" 1>/dev/null 2>/dev/null; then
 				echo " \n O Programa ${Red}$apt_1${reset} ja esta instalado "
 			else
 				echo "[++] Iniciando instalacao (${BGreen}$apt_1${reset}) \n"
@@ -908,7 +922,7 @@ menuUtilities(){
 				echo "${BGreen} Adobe flash player instalado com sucesso${reset}"
 			fi ; enter;
 		elif [ "$option" -eq 3 ]; then	
-			if which -a "$apt_3" $null; then
+			if which -a "$apt_3" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_3${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_3${reset}) [++]\n"
@@ -918,7 +932,7 @@ menuUtilities(){
 				echo "[++] (${BGreen}$apt_3${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 4 ]; then	
-			if which -a "$apt_4" $null; then
+			if which -a "$apt_4" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_4${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_4${reset}) [++]\n"
@@ -971,7 +985,7 @@ menuVirtualization(){
 	local apt_2="VMWare"
 	aptGetInstallVirtualization() {
 		if [ "$option" -eq 1 ]; then
-			if which -a "$apt_1" $null; then
+			if which -a "$apt_1" 1>/dev/null 2>/dev/null; then
 				echo " \n O Programa ${Red}$apt_1${reset} ja esta instalado "
 			else
 				checkLinuxHeaders
@@ -1001,7 +1015,7 @@ menuVirtualization(){
 				echo "${Green}[++]${reset} ${BGreen}$apt_1 instalado com sucesso${reset}"	
 			fi ; enter;
 		elif [ "$option" -eq 2 ]; then	
-			if which -a "$apt_2" $null; then
+			if which -a "$apt_2" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_2${reset} ja esta instalado "
 			else
 				checkLinuxHeaders
@@ -1074,7 +1088,7 @@ menuWebBrowsers(){
 	local apt_18="W3M"
 	aptGetInstallWebBrowsers() {
 		if [ "$option" -eq 1 ]; then
-			if which -a "$apt_1" $null; then
+			if which -a "$apt_1" 1>/dev/null 2>/dev/null; then
 				echo " \n O Programa ${Red}$apt_1${reset} ja esta instalado "
 			else
 				echo "[++] Iniciando instalacao (${BGreen}$apt_1${reset}) \n"
@@ -1083,13 +1097,13 @@ menuWebBrowsers(){
 				wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 				chmod +x google-chrome-stable_current_amd64.deb
 				sudo dpkg -i google-chrome-stable_current_amd64.deb
-				sudo apt-get install -y -f
+				sudo apt-get install -f
 				sudo rm google-chrome-stable_current_amd64.deb
 				echo "${reset}"
 				echo "[++] (${BGreen}$apt_1${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 2 ]; then	
-			if which -a "$apt_2" $null; then
+			if which -a "$apt_2" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_2${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_2${reset}) [++]\n"
@@ -1101,7 +1115,7 @@ menuWebBrowsers(){
 				echo "[++] (${BGreen}$apt_2${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 3 ]; then	
-			if which -a "$apt_3" $null; then
+			if which -a "$apt_3" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_3${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_3${reset}) [++]\n"
@@ -1111,7 +1125,7 @@ menuWebBrowsers(){
 				echo "[++] (${BGreen}$apt_3${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 4 ]; then	
-			if which -a "$apt_4" $null; then
+			if which -a "$apt_4" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_4${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_4${reset}) [++]\n"
@@ -1121,7 +1135,7 @@ menuWebBrowsers(){
 				echo "[++] (${BGreen}$apt_4${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 5 ]; then	
-			if which -a "$apt_5" $null; then
+			if which -a "$apt_5" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_5${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_5${reset}) [++]\n"
@@ -1131,7 +1145,7 @@ menuWebBrowsers(){
 				echo "[++] (${BGreen}$apt_5${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 6 ]; then	
-			if which -a "$apt_6" $null; then
+			if which -a "$apt_6" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_6${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_6${reset}) [++]\n"
@@ -1141,7 +1155,7 @@ menuWebBrowsers(){
 				echo "[++] (${BGreen}$apt_6${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 7 ]; then	
-			if which -a "$apt_7" $null; then
+			if which -a "$apt_7" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_7${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_7${reset}) [++]\n"
@@ -1151,7 +1165,7 @@ menuWebBrowsers(){
 				echo "[++] (${BGreen}$apt_7${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 8 ]; then	
-			if which -a "$apt_8" $null; then
+			if which -a "$apt_8" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_8${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_8${reset}) [++]\n"
@@ -1161,7 +1175,7 @@ menuWebBrowsers(){
 				echo "[++] (${BGreen}$apt_8${reset}) instalado com sucesso"
 			fi ; enter;
 		elif [ "$option" -eq 9 ]; then	
-			if which -a "$apt_8" $null; then
+			if which -a "$apt_8" 1>/dev/null 2>/dev/null; then
 				echo "\n O Programa ${Red}$apt_8${reset} ja esta instalado "
 			else
 				echo "[++} Iniciando instalacao (${BGreen}$apt_8${reset}) [++]\n"
