@@ -26,6 +26,8 @@ Purple="\033[0;35m"       # Purple
 Cyan="\033[0;36m"         # Cyan
 White="\033[0;37m"        # White
 
+#line blank
+
 banner(){
 echo "
  ${BWhite}[++++++++++++++++++++++++++++++++++++++++++++++++++++++++++]
@@ -235,7 +237,7 @@ menuImageEditors(){
 					add-apt-repository ppa:dhor/myway
 					echo "${BWhite}"
 					apt-get update
-					apt-get install -y ${apt_4}
+					apt-get install -y $apt_4
 					echo "${reset}"
 					echo "[++] (${BGreen}$apt_4${reset}) instalado com sucesso"
 				fi;			
